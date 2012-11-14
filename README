@@ -1,0 +1,5 @@
+#jPregel-WebAdmin
+
+###A web based admin interface for jPregel.
+
+- Real-time logging with WebSockets
