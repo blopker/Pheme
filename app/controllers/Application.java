@@ -13,16 +13,39 @@ import views.html.index;
 public class Application extends Controller {
   
     /**
-     * Display the home page.
+     * Display the start page.
      */
     public static Result index() {
+    	if(JPregelRunner.isRunning()){
+    		
+    	}
         return ok(index.render());
     }
-  
+    
+    public static Result stopJpregel() {
+    	JPregelRunner.stopJPregel();
+    	if(!JPregelRunner.isRunning()){
+    		return redirect(routes.Application.index());
+    	} else {
+            flash("error", "jPregel is unstoppable!");
+            return redirect(routes.Application.index());
+    	}
+	}
+    
+    public static Result startJpregel() {
+    	JPregelRunner.startJPregel();
+    	if(JPregelRunner.isRunning()){
+    		return redirect(routes.Application.chatRoom("bo"));
+    	} else {
+            flash("error", "jPregel cannot be reached!");
+            return redirect(routes.Application.index());
+    	}
+	}
+      
     /**
      * Display the chat room.
      */
-    public static Result chatRoom(String username) {
+    public static Result chatRoom(final String username) {
         if(username == null || username.trim().equals("")) {
             flash("error", "Please choose a valid username.");
             return redirect(routes.Application.index());

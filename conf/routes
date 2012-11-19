@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+POST    /jpregel/start              controllers.Application.startJpregel()
+POST    /jpregel/stop               controllers.Application.stopJpregel()
 GET     /room                       controllers.Application.chatRoom(username: String ?= null)
 GET     /room/chat                  controllers.Application.chat(username)
 

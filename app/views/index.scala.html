@@ -1,21 +1,22 @@
 
 @main(null) {
-    
+
     @if(flash.containsKey("error")) {
-        
-        <div class="alert-message error">
+
+        <div class="alert alert-error">
             <p>
                 <strong>Oops!</strong> @flash.get("error")
             </p>
         </div>
-        
+
     }
-        
-    <div class="alert-message block-message info">
+
+    <div class="alert">
         <p>
-            <strong>This is the Play 2.0 Websocket sample application!</strong> 
-            To start, choose a username and sign in using the top right form.
+            <strong>Welcome to jPregel WebAdmin!</strong>
+            Start jPregel with the button on the top right.
         </p>
     </div>
-    
+    <img class="jpregel-logo" width="600px" src="http://charlesmunger.github.com/jpregel-aws/images/graph_usairways_bundled.jpeg">
+
 }

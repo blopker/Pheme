@@ -25,6 +25,10 @@ body {
     min-height: 10px;
 }
 
+footer{
+    margin-top: 20px;
+}
+
 /* Page header tweaks */
 .page-header {
     background-color: #f5f5f5;
@@ -110,4 +114,9 @@ body {
 
 .message.join, .message.quit {
     background: #D9E7FB;
+}
+
+.jpregel-logo{
+    margin: 0 auto;
+    display: block;
 }
