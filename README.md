@@ -12,7 +12,9 @@ in the Pheme root folder.
 
 ### Screenshots
 Index
-![index](pheme_index.PNG)
+
+![index](https://github.com/ninj0x/Pheme/blob/master/pheme_index.PNG?raw=true)
 
 Logs
-![Logs](pheme_logs.PNG)
+
+![Logs](https://github.com/ninj0x/Pheme/blob/master/pheme_logs.PNG?raw=true)
