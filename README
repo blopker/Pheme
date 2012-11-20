@@ -1,7 +1,7 @@
-#jPregel-WebAdmin
+# Pheme
 
 View Pheme's project page at: http://ninj0x.github.com/Pheme/
 
-###A web based admin interface for jPregel.
+### A web based admin interface for jPregel.
 
 - Real-time logging with WebSockets
