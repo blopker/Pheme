@@ -11,9 +11,6 @@ Pheme is a standard [Play Framework](http://www.playframework.org) web app. To r
 in the Pheme root folder.
 
 ### Screenshots
-Index
-
-![index](https://github.com/ninj0x/Pheme/blob/master/pheme_index.PNG?raw=true)
 
 Logs
 
