@@ -1,7 +1,16 @@
 # Pheme
+#### Web based admin interface for jPregel
 
-View Pheme's project page at: http://ninj0x.github.com/Pheme/
+View Pheme's [project page](http://ninj0x.github.com/Pheme/).
 
-### A web based admin interface for jPregel.
+### Usage
+Pheme is a standard [Play Framework](http://www.playframework.org) web app. To run Pheme, just download the Play Framework file and run:
+
+	play start
+
+in the Pheme root folder.
+
+
 
 - Real-time logging with WebSockets
+
