@@ -1,16 +1,11 @@
 $(function() {
+  var socketURL = window.socketURL || null;
   if(socketURL === null){
     return;
   }
+
   var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
   var chatSocket = new WS(socketURL);
-
-  var sendMessage = function() {
-      chatSocket.send(JSON.stringify({
-        text: $("#talk").val()
-      }));
-      $("#talk").val('');
-    };
 
   var receiveEvent = function(event) {
       var data = JSON.parse(event.data);
@@ -22,32 +17,23 @@ $(function() {
         $("#onError").show();
         return;
       } else {
-        $("#onChat").show();
+        $("#onLog").show();
       }
 
       // Create the message element
-      var el = $('<div class="message"><span></span><p></p></div>');
+      var el = $('<div class="log"><span></span><p></p></div>');
       $("span", el).text(data.user);
       $("p", el).text(data.message);
       $(el).addClass(data.kind);
       if(data.user == '@username') $(el).addClass('me');
-      $('#messages').append(el);
+      $('#logs').append(el);
 
       // Update the members list
-      $("#members").html('');
+      $("#components").html('');
       $(data.members).each(function() {
-        $("#members").append('<li>' + this + '</li>');
+        $("#components").append('<li>' + this + '</li>');
       });
     };
-
-  var handleReturnKey = function(e) {
-      if(e.charCode == 13 || e.keyCode == 13) {
-        e.preventDefault();
-        sendMessage();
-      }
-    };
-
-  $("#talk").keypress(handleReturnKey);
 
   chatSocket.onmessage = receiveEvent;
 

@@ -10,7 +10,5 @@ Pheme is a standard [Play Framework](http://www.playframework.org) web app. To r
 
 in the Pheme root folder.
 
-
-
-- Real-time logging with WebSockets
+### Screenshots
 
