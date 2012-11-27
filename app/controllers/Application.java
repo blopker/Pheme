@@ -1,13 +1,13 @@
 package controllers;
 
-import models.ChatRoom;
+import models.Logs;
 
 import org.codehaus.jackson.JsonNode;
 
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.WebSocket;
-import views.html.chatRoom;
+import views.html.logs;
 import views.html.index;
 
 public class Application extends Controller {
@@ -21,42 +21,18 @@ public class Application extends Controller {
     	}
         return ok(index.render());
     }
-    
-    public static Result stopJpregel() {
-    	JPregelRunner.stopJPregel();
-    	if(!JPregelRunner.isRunning()){
-    		return redirect(routes.Application.index());
-    	} else {
-            flash("error", "jPregel is unstoppable!");
-            return redirect(routes.Application.index());
-    	}
-	}
-    
-    public static Result startJpregel() {
-    	JPregelRunner.startJPregel();
-    	if(JPregelRunner.isRunning()){
-    		return redirect(routes.Application.chatRoom("bo"));
-    	} else {
-            flash("error", "jPregel cannot be reached!");
-            return redirect(routes.Application.index());
-    	}
-	}
-      
+         
     /**
-     * Display the chat room.
+     * Display the logs.
      */
-    public static Result chatRoom(final String username) {
-        if(username == null || username.trim().equals("")) {
-            flash("error", "Please choose a valid username.");
-            return redirect(routes.Application.index());
-        }
-        return ok(chatRoom.render(username));
+    public static Result logs() {
+        return ok(logs.render());
     }
     
     /**
      * Handle the chat websocket.
      */
-    public static WebSocket<JsonNode> chat(final String username) {
+    public static WebSocket<JsonNode> logsSubscribe() {
         return new WebSocket<JsonNode>() {
             
             // Called when the Websocket Handshake is done.
@@ -64,7 +40,7 @@ public class Application extends Controller {
                 
                 // Join the chat room.
                 try { 
-                    ChatRoom.join(username, in, out);
+                    Logs.listen(in, out);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

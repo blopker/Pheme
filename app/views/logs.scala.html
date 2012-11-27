@@ -1,6 +1,4 @@
-@(username: String)
-
-@main(username) {
+@main() {
     <div class="page-header">
         <h1>Log Viewer</h1>
     </div>
@@ -23,6 +21,6 @@
         </div>
     </div>
     <script type="text/javascript">
-        var socketURL = "@routes.Application.chat(username).webSocketURL(request)";
+        var socketURL = "@routes.Application.logsSubscribe().webSocketURL(request)";
     </script>
 }

@@ -4,10 +4,8 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-POST    /jpregel/start              controllers.Application.startJpregel()
-POST    /jpregel/stop               controllers.Application.stopJpregel()
-GET     /logs                       controllers.Application.chatRoom(username: String ?= "Master")
-GET     /room/chat                  controllers.Application.chat(username)
+GET     /logs                       controllers.Application.logs()
+GET     /logs/subscribe             controllers.Application.logsSubscribe()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

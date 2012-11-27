@@ -1,4 +1,4 @@
-@(connected: String)(content: Html)
+@()(content: Html)
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -26,17 +26,9 @@
             <div class="navbar-inner">
                 <div class="container">
                     <a class="brand" href="@routes.Application.index()">Pheme</a>
-
-                    @if(connected != null) {
-                        <form action="@routes.Application.stopJpregel()" method="POST" class="navbar-form pull-right">
-                            <button class="btn" type="submit">Stop jPregel</button>
-                        </form>
-                    } else {
-                        <form action="@routes.Application.startJpregel()" method="POST" class="navbar-form pull-right">
-                            <button class="btn" type="submit">Start jPregel</button>
-                        </form>
-                    }
-
+                    <ul class="nav">
+                        <li><a href="/logs">Logs</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -19,10 +19,10 @@ import static java.util.concurrent.TimeUnit.*;
 /**
  * A chat room is an Actor.
  */
-public class ChatRoom extends UntypedActor {
+public class Logs extends UntypedActor {
     
     // Default room.
-    static ActorRef defaultRoom = Akka.system().actorOf(new Props(ChatRoom.class));
+    static ActorRef defaultRoom = Akka.system().actorOf(new Props(Logs.class));
     
     // Create a Robot, just for fun.
     static {
@@ -32,8 +32,8 @@ public class ChatRoom extends UntypedActor {
     /**
      * Join the default room.
      */
-    public static void join(final String username, WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out) throws Exception{
-        
+    public static void listen(WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out) throws Exception{
+        final String username = "client";
         // Send the Join message to the room
         String result = (String)Await.result(ask(defaultRoom,new Join(username, out), 1000), Duration.create(1, SECONDS));
         

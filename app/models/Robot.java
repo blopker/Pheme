@@ -27,14 +27,14 @@ public class Robot {
         };
         
         // Join the room
-        chatRoom.tell(new ChatRoom.Join("Worker", robotChannel));
+        chatRoom.tell(new Logs.Join("Worker", robotChannel));
         
         // Make the robot talk every 30 seconds
         Akka.system().scheduler().schedule(
             Duration.create(30, SECONDS),
             Duration.create(30, SECONDS),
             chatRoom,
-            new ChatRoom.Talk("Worker", "[INFO] Processing complete")
+            new Logs.Talk("Worker", "[INFO] Processing complete")
         );
         
     }
