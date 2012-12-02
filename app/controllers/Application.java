@@ -1,8 +1,10 @@
 package controllers;
 
-import models.Logs;
+import models.LogSocket;
 
 import org.codehaus.jackson.JsonNode;
+
+import com.google.common.eventbus.EventBus;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -11,14 +13,30 @@ import views.html.logs;
 import views.html.index;
 
 public class Application extends Controller {
+	static EventBus eventBus = new EventBus();
+	
+	/**
+	 * Subscribe to the global event bus.
+	 * See: http://codingjunkie.net/guava-eventbus/
+	 * @param subscriber
+	 */
+	public static void subscribe(Object subscriber) {
+		eventBus.register(subscriber);
+	}
+	
+	/**
+	 * Post events to the event bus. Can be any Object.
+	 * See: http://codingjunkie.net/guava-eventbus/
+	 * @param event
+	 */
+	public static void post(Object event) {
+		eventBus.post(event);
+	}
   
     /**
      * Display the start page.
      */
     public static Result index() {
-    	if(JPregelRunner.isRunning()){
-    		
-    	}
         return ok(index.render());
     }
          
@@ -40,7 +58,7 @@ public class Application extends Controller {
                 
                 // Join the chat room.
                 try { 
-                    Logs.listen(in, out);
+                    LogSocket.connect(in, out);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

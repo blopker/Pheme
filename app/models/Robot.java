@@ -1,42 +1,25 @@
 package models;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
-import org.codehaus.jackson.JsonNode;
-
-import play.Logger;
-import play.libs.Akka;
-import play.libs.Json;
-import play.mvc.WebSocket;
-import akka.actor.ActorRef;
-import akka.util.Duration;
-
 public class Robot {
-    
-    public Robot(ActorRef chatRoom) {
-        
-        // Create a Fake socket out for the robot that log events to the console.
-        WebSocket.Out<JsonNode> robotChannel = new WebSocket.Out<JsonNode>() {
-            
-            public void write(JsonNode frame) {
-                Logger.of("robot").info(Json.stringify(frame));
-            }
-            
-            public void close() {}
-            
-        };
-        
-        // Join the room
-        chatRoom.tell(new Logs.Join("Worker", robotChannel));
-        
-        // Make the robot talk every 30 seconds
-        Akka.system().scheduler().schedule(
-            Duration.create(30, SECONDS),
-            Duration.create(30, SECONDS),
-            chatRoom,
-            new Logs.Talk("Worker", "[INFO] Processing complete")
-        );
-        
-    }
-    
+
+	public Robot() {
+		Thread t = new Thread(new RobotMouth());
+		t.start();
+	}
+
+	public class RobotMouth implements Runnable {
+
+		@Override
+		public void run() {
+			while (true) {
+				try {
+					Thread.sleep(1000);
+					Log.create("Robot", Log.Level.INFO, "Robots are sexy.");
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
