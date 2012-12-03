@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PhemeAPI" default="build" basedir=".">
+	<property name="hostname" value="localhost" />
+	<property name="build_dir" location="build" />
+	<property name="dist_dir" location="dist" />
+
+	<target name="compile" description="compile the source">
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build_dir}" />
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac includeantruntime="false" srcdir="${src}" destdir="${build_dir}" />
+	</target>
+
+	<target name="build" depends="compile">
+		<mkdir dir="${dist_dir}" />
+		<jar jarfile="${dist_dir}/PhemeApi.jar" includes="*.class" basedir="${build_dir}" />
+	</target>
+
+	<target name="javadoc" description="create javadocs">
+		<javadoc packagenames="api.*" sourcepath="${src}" destdir="documents/javadoc" />
+	</target>
+	
+    <target name="clean" description="clean up" >
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build_dir}"/>
+        <delete dir="${dist_dir}"/>
+    </target>
+</project>

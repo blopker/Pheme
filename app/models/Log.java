@@ -3,7 +3,7 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import controllers.Application;
+import controllers.EventBus;
 
 import play.db.ebean.*;
 import play.data.format.*;
@@ -48,7 +48,7 @@ public class Log extends Model {
 		log.sourceName = sourceName;
 		log.message = message;
 		log.save();
-		Application.post(log);
+		EventBus.post(log);
 		return log;
 	}
 }

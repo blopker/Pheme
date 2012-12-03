@@ -9,7 +9,7 @@ import org.codehaus.jackson.node.ObjectNode;
 
 import com.google.common.eventbus.Subscribe;
 
-import controllers.Application;
+import controllers.EventBus;
 
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
@@ -34,7 +34,7 @@ public class LogSocket {
     
     public LogSocket() {
     	// Get in on the awesome event bus action.
-    	Application.subscribe(this);
+    	EventBus.subscribe(this);
     }
     
     /**
