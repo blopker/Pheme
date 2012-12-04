@@ -18,10 +18,6 @@ public class Log extends Model {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public enum Level {
-		INFO, DEBUG, WARN, ERROR
-	}
-
 	@Id
 	@Constraints.Min(10)
 	public String id = UUID.randomUUID().toString();
@@ -30,7 +26,7 @@ public class Log extends Model {
 	public String sourceName;
 
 	@Constraints.Required
-	public Level level;
+	public String type;
 
 	@Constraints.Required
 	public String message;
@@ -41,10 +37,10 @@ public class Log extends Model {
 	public static Finder<Long, Log> find = new Finder<Long, Log>(Long.class,
 			Log.class);
 
-	public static Log create(String sourceName, Level level, String message) {
+	public static Log create(String sourceName, String type, String message) {
 		System.out.println("LOG: " + message);
 		Log log = new Log();
-		log.level = level;
+		log.type = type.toUpperCase();
 		log.sourceName = sourceName;
 		log.message = message;
 		log.save();

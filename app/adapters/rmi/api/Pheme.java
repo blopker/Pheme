@@ -1,4 +1,4 @@
-package api;
+package adapters.rmi.api;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -6,17 +6,24 @@ import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 
-import models.Log;
-
 public class Pheme {
 	final PhemeAPI api;
 	
-	public Pheme(String hostname, String compententName) {
+	public enum Level {
+		INFO, DEBUG, WARN, ERROR
+	}
+	
+	public Pheme(String hostname) {
 		api = connect(hostname);
 	}
 	
-	public void log(String name, Log.Level level, String message) throws RemoteException{
-		api.log(name, level, message);
+	public void log(String name, String type, String message){
+		try {
+			api.log(name, type, message);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	 /**

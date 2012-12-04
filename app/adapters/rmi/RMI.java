@@ -1,4 +1,4 @@
-package adapters;
+package adapters.rmi;
 
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
@@ -7,9 +7,8 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import models.Log;
-import models.Log.Level;
 
-import api.PhemeAPI;
+import adapters.rmi.api.PhemeAPI;
 
 public class RMI extends UnicastRemoteObject implements PhemeAPI{
 
@@ -37,9 +36,9 @@ public class RMI extends UnicastRemoteObject implements PhemeAPI{
 	}
 
 	@Override
-	public void log(String name, Level level, String message)
+	public void log(String name, String type, String message)
 			throws RemoteException {
-		Log.create(name, level, message);		
+		Log.create(name, type, message);		
 	}
 
 }

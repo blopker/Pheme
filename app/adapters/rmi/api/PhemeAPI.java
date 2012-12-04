@@ -1,9 +1,7 @@
-package api;
+package adapters.rmi.api;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-
-import models.Log;
 
 public interface PhemeAPI extends Remote{
 	/**
@@ -20,5 +18,5 @@ public interface PhemeAPI extends Remote{
      * @param task
      * @throws RemoteException
      */
-    public void log(String name, Log.Level level, String message) throws RemoteException;
+    public void log(String name, String type, String message) throws RemoteException;
 }

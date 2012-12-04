@@ -14,7 +14,7 @@ public class Robot {
 			while (true) {
 				try {
 					Thread.sleep(1000);
-					Log.create("Robot", Log.Level.INFO, "Robots are sexy.");
+					Log.create("Robot", "info", "Robots are sexy.");
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
