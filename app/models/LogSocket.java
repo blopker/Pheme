@@ -53,8 +53,7 @@ public class LogSocket {
     	final Client client = new Client(out);
     	clients.add(client);
     	ObjectNode result = Json.newObject();
-    	result.put("user", "bo");
-    	result.put("message", "ur cool");
+    	result.put("message", "Place holder for all previous logs.");
     	out.write(result);
     	
     	in.onMessage(new Callback<JsonNode>() {

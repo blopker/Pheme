@@ -13,8 +13,8 @@ public class Robot {
 		public void run() {
 			while (true) {
 				try {
-					Thread.sleep(1000);
-					Log.create("Robot", "info", "Robots are sexy.");
+					Thread.sleep(5000);
+					Log.create("Robot", "info", "Robots will destroy you!.");
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

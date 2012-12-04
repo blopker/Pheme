@@ -6,10 +6,9 @@
 create table log (
   id                        varchar(255) not null,
   source_name               varchar(255),
-  level                     integer,
+  type                      varchar(255),
   message                   varchar(255),
   created                   timestamp,
-  constraint ck_log_level check (level in (0,1,2,3)),
   constraint pk_log primary key (id))
 ;
 
