@@ -5,12 +5,12 @@ import adapters.rmi.api.Pheme;
 public class TestClient implements Runnable{
 	Pheme pheme;
 	String myName;
-	
+
 	public static void main(String[] args) {
 		TestClient client = new TestClient();
 		client.run();
 	}
-	
+
 	private TestClient() {
 		myName = "TestClient" + System.currentTimeMillis();
 		pheme = new Pheme("localhost");
@@ -25,7 +25,7 @@ public class TestClient implements Runnable{
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}			
+			}
 		}
 	}
 }
