@@ -16,7 +16,7 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/vendor/modernizr-2.6.2.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/vendor/modernizr.js")"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -45,8 +45,7 @@
             </p>
         </footer>
 
-        <script src="@routes.Assets.at("javascripts/vendor/jquery-1.8.2.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/plugins.js")"></script>
-        <script src="@routes.Assets.at("javascripts/main.js")"></script>
+        <script src="@routes.Assets.at("javascripts/vendor/jquery.js")"></script>
+        @helper.requireJs(core = routes.Assets.at("javascripts/require.js").url, module = routes.Assets.at("javascripts/main").url)
     </body>
 </html>
