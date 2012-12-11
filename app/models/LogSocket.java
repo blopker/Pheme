@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ObjectNode;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -15,6 +14,7 @@ import play.libs.F.Callback;
 import play.libs.F.Callback0;
 import play.libs.Json;
 import play.mvc.WebSocket;
+import play.mvc.WebSocket.Out;
 
 /**
  * A WebSocket log viewer. Clients will get push updates of new logs and can request specific log types.
@@ -52,16 +52,15 @@ public class LogSocket {
     private void connectImpl(WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
     	final Client client = new Client(out);
     	clients.add(client);
-    	ObjectNode result = Json.newObject();
-    	result.put("message", "Place holder for all previous logs.");
-    	out.write(result);
+    	
+    	sendAllLogs(out);
     	
     	in.onMessage(new Callback<JsonNode>() {
 			
 			@Override
 			public void invoke(JsonNode a) throws Throwable {
-				JsonNode resp = getResponse(a);
-				out.write(resp);				
+				// Just echo for now.
+				out.write(a);				
 			}
 		});
     	
@@ -77,16 +76,13 @@ public class LogSocket {
 	}
     
     
-    private JsonNode getResponse(JsonNode json){
-    	if(json == null){
-    		return getAllLogs();
-    	}
-    	return json;
-    }
+    private void sendAllLogs(Out<JsonNode> out) {
+    	List<Log> logs = Log.find.all();
+    	for (Log log : logs) {
+    		out.write(Json.toJson(log));
+		}	
+	}
     
-    private JsonNode getAllLogs(){
-    	return null;
-    }
     
     // Send a Json event to all members
     private void notifyAll(JsonNode node) {

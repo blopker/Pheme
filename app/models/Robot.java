@@ -11,12 +11,13 @@ public class Robot {
 
 		@Override
 		public void run() {
+			int count = 0;
 			while (true) {
 				try {
 					Thread.sleep(5000);
-					Log.create("Robot", "info", "Robots will destroy you!.");
+					Log.create("Robot", "info", "Robots will destroy you " + count + " times!");
+					count++;
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
