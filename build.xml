@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="PhemeAPI" default="build" basedir=".">
+<project name="PhemeAPI" default="runClient" basedir=".">
 	<property name="hostname" value="localhost" />
 	<property name="build_dir" location="bin" />
 	<property name="dist_dir" location="dist" />
 	<property name="phemeapi_dir" location="app/adapters/rmi/api" />
 	<property name="src" location="client:${phemeapi_dir}" />
+
 	
-	<target name="run">
-		 <java jar="${dist_dir}/RMIClient.jar" fork="true"/>
+	<target name="runServer">
+		
+	</target>
+	
+	<target name="runClient" depends="build">
+		<java jar="${dist_dir}/RMIClient.jar" fork="true">
+			<jvmarg value="-Djava.security.policy=conf/policy.txt" />
+			<arg value="${hostname}" />
+		</java>
 	</target>
 
 	<target name="build" depends="compile">
 		<mkdir dir="${dist_dir}" />
 		<jar jarfile="${dist_dir}/RMIClient.jar" basedir="${build_dir}">
-            <manifest>
-                <attribute name="Main-Class" value="rmi.TestClient"/>
-            </manifest>
+			<manifest>
+				<attribute name="Main-Class" value="rmi.TestClient" />
+			</manifest>
 		</jar>
 	</target>
-	
+
 	<target name="compile" description="compile the source">
 		<!-- Create the build directory structure used by compile -->
 		<mkdir dir="${build_dir}" />
@@ -31,10 +39,10 @@
 	<target name="javadoc" description="create javadocs">
 		<javadoc packagenames="api.*" sourcepath="${src}" destdir="documents/javadoc" />
 	</target>
-	
-    <target name="clean" description="clean up" >
-        <!-- Delete the ${build} and ${dist} directory trees -->
-        <delete dir="${build_dir}"/>
-        <delete dir="${dist_dir}"/>
-    </target>
+
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build_dir}" />
+		<delete dir="${dist_dir}" />
+	</target>
 </project>

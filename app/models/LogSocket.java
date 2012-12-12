@@ -27,10 +27,10 @@ public class LogSocket {
     private List<Client> clients = Collections.synchronizedList(new ArrayList<Client>());
     
     
-    // Create a Robot, just for fun.
-    static {
-        new Robot();
-    }
+//    // Create a Robot, just for fun.
+//    static {
+//        new Robot();
+//    }
     
     public LogSocket() {
     	// Get in on the awesome event bus action.

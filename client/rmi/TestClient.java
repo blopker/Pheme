@@ -1,5 +1,7 @@
 package rmi;
 
+import java.util.Random;
+
 import adapters.rmi.api.Pheme;
 
 public class TestClient implements Runnable{
@@ -12,7 +14,9 @@ public class TestClient implements Runnable{
 	}
 
 	private TestClient() {
-		myName = "TestClient" + System.currentTimeMillis();
+		Random r = new Random();
+		char c = (char)(r.nextInt(26) + 'A');
+		myName = "TestClient" + c;
 		pheme = new Pheme("localhost");
 	}
 
