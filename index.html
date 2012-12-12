@@ -156,10 +156,10 @@
 <p>At first the test client was instructed to send as many logs as possible. This was done by calling the API's log method in an infinite while loop. Logs made it to the browser, but they did so in short bursts separated by a second. Pheme could not handle this volume.</p>
 
 <p>The next test was to wait 1 second after each log method invocation. Pheme was able to successfully receive and send these messages at a constant rate without delay.</p>
-
+ 
 <p>The wait time was then decreased to 10 milliseconds. Over 10 seconds the browser received 1042 messages which is about 104 log/s. With a 10 ms wait time the rate should be 100 log/s. This indicates that Pheme keep up with load, but due to network lag some packets arrived closer together than at 10 ms intervals.</p>
 
-<p>For the last test a 1 ms wait time was used. Over 14 seconds 3190 logs were received. This is a rate of 227 log/s which, for an expected rate of 1000 log/s, is 22.7% what it should be. This amount of logging clearly over whelmed the system. The bottleneck seems to be in the RMI API communication. The test client's log queue was unable to process quickly enough and its size kept growing. Further investigation into RMI performance is needed.</p>
+<p>For the last test a 1 ms wait time was used. Over 14 seconds 3190 logs were received. This is a rate of 227 log/s which, for an expected rate of 1000 log/s, is 22.7% what it should be. This amount of logging clearly over whelmed the system. The bottleneck seems to be in the RMI API communication. The test client's log queue was unable to process quickly enough and its size kept growing. This issue could be resolved through batch RMI calls where more than one log is sent at a time. Further investigation into RMI performance is needed.</p>
 
 <h2>Future Work</h2>
 
