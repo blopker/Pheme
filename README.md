@@ -10,6 +10,10 @@ Pheme is a [Play Framework](http://www.playframework.org) web app. To run Pheme,
 
 in the Pheme root folder.
 
+To run the test RMI client, get ant and run:
+
+	ant runClient
+
 ### Screenshots
 
 Logs
