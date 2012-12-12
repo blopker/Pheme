@@ -22,10 +22,14 @@ public class TestClient implements Runnable{
 
 	@Override
 	public void run() {
+		int count = 0;
 		while (true){
+//			pheme.log(myName, "info", "Will the real TestClient please stand up?");
 			try {
-				Thread.sleep(2000);
-				pheme.log(myName, "info", "Will the real TestClient please stand up?");
+				Thread.sleep(10);
+				pheme.log(myName, "info", "Will the real TestClient please stand up? " + count);
+				System.out.println("sent log " + count);
+				count++;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

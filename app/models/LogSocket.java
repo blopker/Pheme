@@ -26,12 +26,6 @@ public class LogSocket {
     // Client list. Client is a user of the web interface.
     private List<Client> clients = Collections.synchronizedList(new ArrayList<Client>());
     
-    
-//    // Create a Robot, just for fun.
-//    static {
-//        new Robot();
-//    }
-    
     public LogSocket() {
     	// Get in on the awesome event bus action.
     	EventBus.subscribe(this);

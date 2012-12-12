@@ -38,7 +38,7 @@ public class Log extends Model {
 			Log.class);
 
 	public static Log create(String sourceName, String type, String message) {
-		System.out.println("LOG: " + message);
+//		System.out.println("LOG: " + message);
 		Log log = new Log();
 		log.type = type.toUpperCase();
 		log.sourceName = sourceName;

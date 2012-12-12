@@ -19,15 +19,14 @@ define(function(){
         }
 
         // Create the message element
-        var el = $('<div class="log"><span class="info"></span><span class="name"></span><p class="date"></p><p class="message"></p></div>');
+        var el = $('<div class="log"><span class="type"></span><span class="name"></span><p class="date"></p><p class="message"></p></div>');
         $("span.name", el).text(data.sourceName);
-        $("span.info", el).text("["+data.type+"]");
+        $("span.type", el).text("["+data.type+"]");
         var d = new Date(data.created);
         $("p.date", el).text("("+d.toLocaleTimeString()+"): ");
         $("p.message", el).text(data.message);
-        $(el).addClass(data.kind);
-        if(data.user == '@username') $(el).addClass('me');
-        $('#logs').append(el);
+        $(el).addClass(data.type);
+        $('#logs').prepend(el);
 
         // Update the members list
         if ($.inArray(data.sourceName, componentList) === -1) {
@@ -35,7 +34,6 @@ define(function(){
           $("#components").append('<li>' + data.sourceName + '</li>');
         }
       };
-
   }
 
   return{

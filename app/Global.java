@@ -19,6 +19,7 @@ public class Global extends GlobalSettings {
   @Override
   public void onStop(Application app) {
     Logger.info("Application shutdown...");
+    RMI.stop();
   }  
     
 }

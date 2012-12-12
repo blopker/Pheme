@@ -9,18 +9,13 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Pheme {
-	final PhemeAPI api;
 	final BlockingQueue<Log> logQueue;
-	
-	public enum Level {
-		INFO, DEBUG, WARN, ERROR
-	}
 	
 	public Pheme(String hostname) {
 		logQueue = new LinkedBlockingQueue<Log>();
-		api = connect(hostname);
-		Sender sender = new Sender();
-		sender.run();
+		Sender sender = new Sender(hostname);
+		Thread t = new Thread(sender);
+		t.start();
 	}
 	
 	public void log(String name, String type, String message){
@@ -39,8 +34,9 @@ public class Pheme {
      * 
      * @param host
      * @return pheme or null
+	 * @throws RemoteException 
      */
-	private PhemeAPI connect(String host) {
+	private PhemeAPI connect(String host) throws RemoteException {
         System.setSecurityManager(new RMISecurityManager());
 
         String serverDomainName = (host == null) ? "localhost" : host;
@@ -50,14 +46,13 @@ public class Pheme {
         PhemeAPI pheme;
         try {
         	pheme = (PhemeAPI) Naming.lookup(url);
-            return pheme;
+        	return pheme;
         } catch (NotBoundException ex) {
             ex.printStackTrace();
         } catch (MalformedURLException ex) {
         	ex.printStackTrace();
-        } catch (RemoteException ex) {
-        	ex.printStackTrace();
         }
+        
         System.exit(1);
         return null;
     }
@@ -88,18 +83,44 @@ public class Pheme {
 	}
 	
 	private class Sender implements Runnable{
+		final String hostname;
+		PhemeAPI api;
+
+		public Sender(String hostname) {
+			this.hostname = hostname;
+		}
+		
+		private void connectAPI() {
+			boolean connected = false;
+			while(!connected){
+				try {
+					api = connect(hostname);
+					connected = true;
+					System.out.println("Connected to Pheme!");
+				} catch (RemoteException e) {
+					System.out.println("Cannot connect to Pheme at " + hostname + ":" + PhemeAPI.SERVICE_PORT); 
+					System.out.println("Trying again in 5 seconds.");
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
 
 		@Override
 		public void run() {
+			connectAPI();
+			
 			while(true){
 				try {
 					Log log = logQueue.take();
 					api.log(log.getName(), log.getType(), log.getMessage());
 				} catch (RemoteException e) {
-					e.printStackTrace();
+					connectAPI();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					connectAPI();
 				}
 			}
 			
