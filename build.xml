@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="PhemeAPI" default="runClient" basedir=".">
-	<property name="hostname" value="localhost" />
+	<property name="hostname" value="blopker.com" />
 	<property name="build_dir" location="bin" />
 	<property name="dist_dir" location="dist" />
 	<property name="phemeapi_dir" location="app/adapters/rmi/api" />
