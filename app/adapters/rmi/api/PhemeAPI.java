@@ -2,6 +2,8 @@ package adapters.rmi.api;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
+
 
 public interface PhemeAPI extends Remote{
 	/**
@@ -19,4 +21,6 @@ public interface PhemeAPI extends Remote{
      * @throws RemoteException
      */
     public void log(String name, String type, String message) throws RemoteException;
+    
+    public void send(List<MessageRMI> messages) throws RemoteException;
 }

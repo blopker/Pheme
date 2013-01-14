@@ -11,12 +11,12 @@
 	  <exec executable="play">
       <arg value="-Djava.security.policy=policy.txt"/>
       <arg value="-DapplyEvolutions.default=true"/>
-      <arg value="start"/>
+      <arg value="run"/>
     </exec>
 	</target>
 
 	<target name="runClient" depends="build">
-		<java jar="${dist_dir}/RMIClient.jar" fork="true">
+		<java jar="${dist_dir}/PhemeRMIClient.jar" fork="true">
 			<jvmarg value="-Djava.security.policy=conf/policy.txt" />
 			<arg value="${hostname}" />
 		</java>
@@ -24,7 +24,7 @@
 
 	<target name="build" depends="compile">
 		<mkdir dir="${dist_dir}" />
-		<jar jarfile="${dist_dir}/RMIClient.jar" basedir="${build_dir}">
+		<jar jarfile="${dist_dir}/PhemeRMIClient.jar" basedir="${build_dir}">
 			<manifest>
 				<attribute name="Main-Class" value="rmi.TestClient" />
 			</manifest>

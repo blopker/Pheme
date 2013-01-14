@@ -5,14 +5,18 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import adapters.rmi.api.MessageRMI;
+
 public class Pheme {
-	final BlockingQueue<Log> logQueue;
-	
+	final BlockingQueue<MessageRMI> messageQueue;
+
 	public Pheme(String hostname) {
-		logQueue = new LinkedBlockingQueue<Log>();
+		messageQueue = new LinkedBlockingQueue<MessageRMI>();
 		Sender sender = new Sender(hostname);
 		Thread t = new Thread(sender);
 		t.start();
@@ -20,9 +24,16 @@ public class Pheme {
 	
 	public void log(String name, String type, String message){
 		try {
-			logQueue.put(new Log(name, type, message));
+			messageQueue.put(new LogRMI(name, type, message));
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void send(MessageRMI m){
+		try {
+			messageQueue.put(m);
+		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
 	}
@@ -57,30 +68,6 @@ public class Pheme {
         return null;
     }
 	
-	private class Log{
-		final String name;
-		final String type;
-		final String message;
-		
-		public Log(String name, String type, String message) {
-			this.name = name;
-			this.type = type;
-			this.message = message;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public String getType() {
-			return type;
-		}
-
-		public String getMessage() {
-			return message;
-		}
-
-	}
 	
 	private class Sender implements Runnable{
 		final String hostname;
@@ -112,14 +99,18 @@ public class Pheme {
 		@Override
 		public void run() {
 			connectAPI();
-			
+			List<MessageRMI> messages = new ArrayList<MessageRMI>();
 			while(true){
 				try {
-					Log log = logQueue.take();
-					api.log(log.getName(), log.getType(), log.getMessage());
+					messages.add(messageQueue.take());
+					messageQueue.drainTo(messages);
+					api.send(messages);
+					messages.clear();
 				} catch (RemoteException e) {
+					e.printStackTrace();
 					connectAPI();
 				} catch (InterruptedException e) {
+					e.printStackTrace();
 					connectAPI();
 				}
 			}

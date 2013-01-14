@@ -7,41 +7,48 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import models.Log;
 
+import adapters.rmi.api.LogRMI;
+import adapters.rmi.api.MessageRMI;
 import adapters.rmi.api.PhemeAPI;
 
-public class RMI extends UnicastRemoteObject implements PhemeAPI{
+public class RMI extends UnicastRemoteObject implements PhemeAPI {
 	static Registry registry;
 	static PhemeAPI pheme;
+	final BlockingQueue<MessageRMI> messageQueue;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public static void start() throws RemoteException {
-	     // construct & set a security manager (unnecessary in this case)
+
+		// construct & set a security manager (unnecessary in this case)
 		System.setProperty("java.security.policy", "./policy.txt");
-        System.setSecurityManager(new RMISecurityManager());
+		System.setSecurityManager(new RMISecurityManager());
 
-        // construct an rmiregistry within this JVM using the default port
-        if(registry == null){
-        	registry = LocateRegistry.createRegistry(PhemeAPI.SERVICE_PORT);
-        }
-        
-        pheme = new RMI();
-        registry.rebind(PhemeAPI.SERVICE_NAME, pheme);
+		// construct an rmiregistry within this JVM using the default port
+		if (registry == null) {
+			registry = LocateRegistry.createRegistry(PhemeAPI.SERVICE_PORT);
+		}
 
-        System.out.println("RMI Service: Ready.");
+		pheme = new RMI();
+		registry.rebind(PhemeAPI.SERVICE_NAME, pheme);
+
+		System.out.println("RMI Service: Ready.");
 	}
-	
-	public static void stop(){
+
+	public static void stop() {
 		try {
-			if(registry != null){
+			if (registry != null) {
 				registry.unbind(PhemeAPI.SERVICE_NAME);
 				UnicastRemoteObject.unexportObject(pheme, true);
-				UnicastRemoteObject.unexportObject(registry, true);  
+				UnicastRemoteObject.unexportObject(registry, true);
 				System.out.println("RMI Service: Shutdown.");
 			}
 		} catch (AccessException e) {
@@ -55,15 +62,46 @@ public class RMI extends UnicastRemoteObject implements PhemeAPI{
 			e.printStackTrace();
 		}
 	}
-	
+
 	private RMI() throws RemoteException {
 		super();
+		messageQueue = new LinkedBlockingQueue<MessageRMI>();
+		MessageProcessor p = new MessageProcessor();
+		Thread t = new Thread(p);
+		t.start();
 	}
 
 	@Override
 	public void log(String name, String type, String message)
 			throws RemoteException {
-		Log.create(name, type, message);		
+		System.out.println("got log:" + name);
+		Log.create(name, type, message);
 	}
 
+	@Override
+	public void send(List<MessageRMI> messages) throws RemoteException {
+			messageQueue.addAll(messages);
+			System.out.println("Got " + messages.size() + " messages.");
+	}
+
+	private class MessageProcessor implements Runnable {
+
+		@Override
+		public void run() {
+			while (true) {
+				MessageRMI m;
+				try {
+					m = messageQueue.take();
+					if (m instanceof LogRMI) {
+						LogRMI log = (LogRMI) m;
+						Log.create(log.getClient(), log.getType(),
+								log.getMessage());
+//						System.out.println(log.getMessage());
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

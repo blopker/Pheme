@@ -28,14 +28,14 @@ public class TestClient implements Runnable{
 	public void run() {
 		int count = 0;
 		while (count < 1000){
-			try {
-				Thread.sleep(10);
+//			try {
+//				Thread.sleep(10);
 				pheme.log(myName, "info", "Will the real TestClient please stand up? " + count);
 				System.out.println("sent log " + count);
 				count++;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 		}
 	}
 }
