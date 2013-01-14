@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="PhemeAPI" default="runClient" basedir=".">
-	<property name="hostname" value="blopker.com" />
+	<property name="hostname" value="localhost" />
 	<property name="build_dir" location="bin" />
 	<property name="dist_dir" location="dist" />
 	<property name="phemeapi_dir" location="app/adapters/rmi/api" />
 	<property name="src" location="client:${phemeapi_dir}" />
 
-	
+
 	<target name="runServer">
-		
+	  <exec executable="play">
+      <arg value="-Djava.security.policy=policy.txt"/>
+      <arg value="-DapplyEvolutions.default=true"/>
+      <arg value="start"/>
+    </exec>
 	</target>
-	
+
 	<target name="runClient" depends="build">
 		<java jar="${dist_dir}/RMIClient.jar" fork="true">
 			<jvmarg value="-Djava.security.policy=conf/policy.txt" />
