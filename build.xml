@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="PhemeAPI" default="runClient" basedir=".">
+<project name="PhemeAPI" default="runServer" basedir=".">
 	<property name="hostname" value="localhost" />
 	<property name="build_dir" location="bin" />
 	<property name="dist_dir" location="dist" />
