@@ -6,7 +6,6 @@ import adapters.rmi.api.Pheme;
 
 public class TestClient implements Runnable{
 	Pheme pheme;
-	String myName;
 
 	public static void main(String[] args) {
 		String hostname = "localhost";
@@ -18,20 +17,21 @@ public class TestClient implements Runnable{
 	}
 
 	private TestClient(String hostname) {
-		Random r = new Random();
-		char c = (char)(r.nextInt(26) + 'A');
-		myName = "TestClient" + c;
 		pheme = new Pheme(hostname);
 	}
 
 	@Override
 	public void run() {
 		int count = 0;
+		Random r = new Random();
+		String[] types = {"info", "warn", "debug"};
 		while (count < 1000){
 			try {
-				Thread.sleep(1000);
-				pheme.log(myName, "info", "Will the real TestClient please stand up? " + count);
-				System.out.println("sent log " + count);
+				char c = (char)(r.nextInt(10) + 'A');
+				String myName = "TestClient" + c;
+				Thread.sleep(100);
+				pheme.log(myName, types[count % types.length], "Will the real TestClient please stand up? " + count);
+				System.out.println(myName + " sent log " + count);
 				count++;
 			} catch (InterruptedException e) {
 				e.printStackTrace();

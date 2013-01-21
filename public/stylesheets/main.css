@@ -98,6 +98,10 @@ footer{
     background: #D9E7FB;
 }
 
+#filter-buttons .btn{
+    margin-right: 10px;
+}
+
 .jpregel-logo{
     margin: 0 auto;
     display: block;

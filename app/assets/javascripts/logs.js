@@ -1,5 +1,6 @@
 define(['lib/socket', 'lib/list.min'], function(socket) {
   var componentList = {};
+  var buttonList = {};
   var logList;
 
   function newLogs (event) {
@@ -13,10 +14,6 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
         return;
       } else {
         $("#onLog").show();
-      }
-
-      if (!logList) {
-        initList();
       }
 
       for (var i = 0; i < data.length; i++) {
@@ -35,17 +32,36 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
       message: log.message
     });
 
+    updateComponents(log.sourceName);
+    updateButtons(log.type, log.type);
+  }
+
+  function updateComponents (name) {
     // Update the members list
-    if (!componentList[log.sourceName]) {
-      componentList[log.sourceName] = log.sourceName;
-      var com = $('<li>' + log.sourceName + '</li>');
+    if (!componentList[name]) {
+      componentList[name] = name;
+      var com = $('<li>' + name + '</li>');
       com.click(function() {
         logList.filter(function(item) {
-          if (item.values().name === log.sourceName) {return true;}
+          if (item.values().name === name) {return true;}
           return false;
         });
       });
       $("#components").append(com);
+    }
+  }
+
+  function updateButtons (name, filter) {
+    if (!buttonList[name]) {
+      buttonList[name] = name;
+      var button = $("<button class='btn btn-inverse'>" + name + "</button>");
+      button.click(function() {
+        logList.filter(function(log) {
+          if (log.values().type === filter || filter === "") {return true;}
+          return false;
+        });
+      });
+      $("#filter-buttons").append(button);
     }
   }
 
@@ -60,6 +76,8 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
   function run () {
     var connection = socket.connect(window.socketURL);
     connection.onmessage = newLogs;
+    initList();
+    updateButtons("ALL", "");
   }
 
   return {
