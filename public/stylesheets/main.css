@@ -73,9 +73,12 @@ footer{
 }
 
 .log {
-    height: 20px;
     padding: 4px 0;
     border-bottom: 1px solid #eee;
+}
+
+.log:nth-child(even){
+    background-color: #f5f5f5;
 }
 
 .log span {

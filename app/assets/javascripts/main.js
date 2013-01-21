@@ -1,8 +1,7 @@
-require(["lib/socket"], function(socket) {
+require(["lib/router"], function(router) {
   $(function() {
-    var socketURL = window.socketURL || null;
-    if(socketURL){
-      socket.connect(socketURL);
+    if (router[window.location.pathname]) {
+      router[window.location.pathname]();
     }
   });
 });

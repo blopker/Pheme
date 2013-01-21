@@ -12,32 +12,32 @@ import views.html.index;
 
 public class Application extends Controller {
 
-  
+
     /**
      * Display the start page.
      */
     public static Result index() {
         return ok(index.render());
     }
-         
+
     /**
      * Display the logs.
      */
     public static Result logs() {
         return ok(logs.render());
     }
-    
+
     /**
      * Handle the chat websocket.
      */
-    public static WebSocket<JsonNode> logsSubscribe() {
+    public static WebSocket<JsonNode> logsSocket() {
         return new WebSocket<JsonNode>() {
-            
+
             // Called when the Websocket Handshake is done.
             public void onReady(WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out){
-                
+
                 // Join the chat room.
-                try { 
+                try {
                     LogSocket.connect(in, out);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -45,5 +45,5 @@ public class Application extends Controller {
             }
         };
     }
-  
+
 }
