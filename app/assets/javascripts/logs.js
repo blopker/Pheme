@@ -1,4 +1,5 @@
 define(['lib/socket', 'lib/list.min'], function(socket) {
+  'use strict';
   var componentList = {};
   var buttonList = {};
   var logList;
@@ -8,7 +9,7 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
       for (var i = 0; i < data.length; i++) {
         addLog(data[i]);
       }
-      logList.sort('sort_date', {asc: false});
+      logList.sort('sortDate', {asc: false});
   }
 
   function addLog (log) {
@@ -17,7 +18,7 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
       type: log.logType,
       name: log.sourceName,
       date: d.toLocaleTimeString(),
-      sort_date: log.created.toString(),
+      sortDate: log.created.toString(),
       message: log.message
     });
 
@@ -36,21 +37,21 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
           return false;
         });
       });
-      $("#components").append(com);
+      $('#components').append(com);
     }
   }
 
   function updateButtons (name, filter) {
     if (!buttonList[name]) {
       buttonList[name] = name;
-      var button = $("<button class='btn btn-inverse'>" + name + "</button>");
+      var button = $('<button class="btn btn-inverse">' + name + '</button>');
       button.click(function() {
         logList.filter(function(log) {
-          if (log.values().type === filter || filter === "") {return true;}
+          if (log.values().type === filter || filter === '') {return true;}
           return false;
         });
       });
-      $("#filter-buttons").append(button);
+      $('#filter-buttons').append(button);
     }
   }
 
@@ -65,7 +66,7 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
   function run () {
     socket.on('log', newLogs);
     initList();
-    updateButtons("ALL", "");
+    updateButtons('ALL', '');
   }
 
   return {
