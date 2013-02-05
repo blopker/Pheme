@@ -4,17 +4,21 @@
 View Pheme's [project page](http://blopker.github.com/Pheme/).
 
 ### Usage
-Pheme is a [Play Framework](http://www.playframework.org) web app. To run Pheme make sure your `play` command is working. If not, download the Play Framework. Next use ant to run:
+Pheme is a [Play Framework](http://www.playframework.org) web app. To run Pheme make sure your `play` command is working. If not, download the Play Framework. Next run:
 
-	ant runServer
+	play start
 
-in the Pheme root folder. If you don't have ant you can also just run:
+in the Pheme root folder. You can also start a development server with:
 
-	play -Djava.security.policy=policy.txt -DapplyEvolutions.default=true start
+	play run
 
-To run the test RMI client run:
+To run the test RMI client you'll need Ant. Then run:
 
 	ant runClient
+
+Finally you can go through all the unittests by running:
+
+	play test
 
 ### Screenshots
 

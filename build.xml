@@ -1,29 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="PhemeAPI" default="runServer" basedir=".">
+<project name="PhemeAPI" default="runClient" basedir=".">
 	<property name="hostname" value="localhost" />
 	<property name="build_dir" location="bin" />
 	<property name="dist_dir" location="dist" />
 	<property name="phemeapi_dir" location="app/adapters/rmi/api" />
 	<property name="src" location="client:${phemeapi_dir}" />
 
-
-	<target name="runServer">
-		<exec executable="play">
-			<arg value="-DapplyEvolutions.default=true" />
-			<arg value="run" />
-		</exec>
-	</target>
-
 	<target name="runClient" depends="build">
 		<java jar="${dist_dir}/PhemeRMIClient.jar" fork="true">
 			<arg value="${hostname}" />
 		</java>
-	</target>
-
-	<target name="test" description="Run all the test cases.">
-		<exec executable="play">
-			<arg value="test"/>
-		</exec>
 	</target>
 
 	<target name="build" depends="compile">
