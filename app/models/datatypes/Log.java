@@ -12,7 +12,7 @@ import play.data.validation.*;
 @Entity
 public class Log extends Model implements DataType {
 	
-	public static String dataType = "log";
+	private static String dataType = "log";
 	
 	/**
 	 * 

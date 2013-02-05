@@ -3,43 +3,31 @@ package models;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
+import models.datatypes.DataType;
 import models.datatypes.Log;
 
 import org.codehaus.jackson.JsonNode;
 
-import play.libs.F.Callback;
 import play.libs.F.Callback0;
-import play.libs.Json;
 import play.mvc.WebSocket;
-import play.mvc.WebSocket.Out;
 
 import com.google.common.eventbus.Subscribe;
 
 import controllers.EventBus;
 
 /**
- * A WebSocket data stream. Clients will get push updates of new datatype events and can
- * request specific datatypes.
+ * A WebSocket data stream. Clients will get push updates of new datatype events
+ * and can request specific datatypes.
  */
 public class Socket {
 	// Create a persistent log socket to track clients.
-	static Socket logSocket = new Socket();
-	final BlockingQueue<Log> logQueue;
+	static Socket socket = new Socket();
 	// Client list. Client is a user of the web interface.
-	private List<Client> clients = Collections
-			.synchronizedList(new ArrayList<Client>());
+	private List<SocketClient> clients = Collections
+			.synchronizedList(new ArrayList<SocketClient>());
 
 	public Socket() {
-		logQueue = new LinkedBlockingQueue<Log>();
-
-		// Create a sender to read form the log queue.
-		LogSender logSender = new LogSender();
-		Thread t = new Thread(logSender);
-		t.start();
-
 		// Get in on the awesome event bus action.
 		EventBus.subscribe(this);
 	}
@@ -49,90 +37,39 @@ public class Socket {
 	 */
 	public static void connect(WebSocket.In<JsonNode> in,
 			final WebSocket.Out<JsonNode> out) throws Exception {
-		logSocket.connectImpl(in, out);
+		socket.connectImpl(in, out);
 	}
 
 	private void connectImpl(WebSocket.In<JsonNode> in,
 			final WebSocket.Out<JsonNode> out) {
-		final Client client = new Client(out);
+		final SocketClient client = new SocketClient(in, out);
 		clients.add(client);
 
-		sendAllLogs(out);
-
-		in.onMessage(new Callback<JsonNode>() {
-
-			@Override
-			public void invoke(JsonNode a) throws Throwable {
-				// Just echo for now.
-				out.write(a);
-			}
-		});
+		sendAllLogs(client);
 
 		in.onClose(new Callback0() {
-
 			@Override
 			public void invoke() throws Throwable {
 				// Remove client from our active client list.
-				out.close();
+				client.kill();
 				clients.remove(client);
 			}
 		});
 	}
 
 	@Subscribe
-	public void logListener(Log log) {
-		try {
-			logQueue.put(log);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void dataListener(DataType data) {
+		notifyAll(data);
 	}
 
-	private void sendAllLogs(Out<JsonNode> out) {
+	private void sendAllLogs(SocketClient client) {
 		List<Log> logs = Log.find.all();
-		logQueue.addAll(logs);
+		client.sendAll(logs);
 	}
 
-	private class Client {
-
-		final WebSocket.Out<JsonNode> socket;
-
-		public Client(WebSocket.Out<JsonNode> socket) {
-			this.socket = socket;
-		}
-
-		public WebSocket.Out<JsonNode> getSocket() {
-			return socket;
-		}
-
-	}
-
-	private class LogSender implements Runnable {
-
-		// Send a Json event to all members
-		private void notifyAll(JsonNode node) {
-			for (Client client : clients) {
-				client.getSocket().write(node);
-			}
-		}
-
-		@Override
-		public void run() {
-			while (true) {
-				List<Log> logs = new ArrayList<Log>();
-				while (true) {
-					try {
-						logs.add(logQueue.take());
-						logQueue.drainTo(logs);
-						notifyAll(Json.toJson(logs));
-						logs.clear();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
+	private void notifyAll(DataType data) {
+		for (SocketClient client : clients) {
+			client.send(data);
 		}
 	}
-
 }

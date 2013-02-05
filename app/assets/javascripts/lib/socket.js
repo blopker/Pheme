@@ -5,7 +5,16 @@ define(['lib/pubsub'], function(pubsub){
 
 
   (function connect () {
-    var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
+    var WS;
+    if (window['MozWebSocket']) {
+      WS = MozWebSocket;
+    } else if (window['WebSocket']) {
+      WS = WebSocket;
+    } else{
+      // Running and old browser or RhinoJS
+      print('Sockets not supported!');
+      return;
+    }
     var connection = new WS('ws://localhost:9000/socket');
     connection.onmessage = onMessage;
   })();
