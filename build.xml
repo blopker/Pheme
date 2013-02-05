@@ -8,18 +8,22 @@
 
 
 	<target name="runServer">
-	  <exec executable="play">
-      <arg value="-Djava.security.policy=policy.txt"/>
-      <arg value="-DapplyEvolutions.default=true"/>
-      <arg value="run"/>
-    </exec>
+		<exec executable="play">
+			<arg value="-DapplyEvolutions.default=true" />
+			<arg value="run" />
+		</exec>
 	</target>
 
 	<target name="runClient" depends="build">
 		<java jar="${dist_dir}/PhemeRMIClient.jar" fork="true">
-			<jvmarg value="-Djava.security.policy=conf/policy.txt" />
 			<arg value="${hostname}" />
 		</java>
+	</target>
+
+	<target name="test" description="Run all the test cases.">
+		<exec executable="play">
+			<arg value="test"/>
+		</exec>
 	</target>
 
 	<target name="build" depends="compile">

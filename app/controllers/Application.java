@@ -17,6 +17,7 @@ public class Application extends Controller {
      * Display the start page.
      */
     public static Result index() {
+    	String bo = "bo";
         return ok(index.render());
     }
 

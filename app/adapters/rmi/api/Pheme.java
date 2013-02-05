@@ -48,8 +48,6 @@ public class Pheme {
 	 * @throws RemoteException 
      */
 	private PhemeAPI connect(String host) throws RemoteException {
-        System.setSecurityManager(new RMISecurityManager());
-
         String serverDomainName = (host == null) ? "localhost" : host;
         String url = "//" + serverDomainName + "/" + PhemeAPI.SERVICE_NAME;
 

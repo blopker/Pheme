@@ -27,11 +27,6 @@ public class RMI extends UnicastRemoteObject implements PhemeAPI {
 	private static final long serialVersionUID = 1L;
 
 	public static void start() throws RemoteException {
-
-		// construct & set a security manager (unnecessary in this case)
-		System.setProperty("java.security.policy", "./policy.txt");
-		System.setSecurityManager(new RMISecurityManager());
-
 		// construct an rmiregistry within this JVM using the default port
 		if (registry == null) {
 			registry = LocateRegistry.createRegistry(PhemeAPI.SERVICE_PORT);
