@@ -2,7 +2,6 @@ package adapters.rmi;
 
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
-import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -11,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import models.Log;
+import models.datatypes.Log;
 
 import adapters.rmi.api.LogDTO;
 import adapters.rmi.api.MessageRMI;

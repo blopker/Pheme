@@ -1,5 +1,7 @@
 package models;
 
+import models.datatypes.Log;
+
 public class Robot {
 
 	public Robot() {

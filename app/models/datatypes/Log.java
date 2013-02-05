@@ -1,4 +1,4 @@
-package models;
+package models.datatypes;
 
 import java.util.*;
 import javax.persistence.*;
