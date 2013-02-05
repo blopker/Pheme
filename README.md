@@ -3,6 +3,8 @@
 
 View Pheme's [project page](http://blopker.github.com/Pheme/).
 
+This project requires *Play 2.1 RC4*.
+
 ### Usage
 Pheme is a [Play Framework](http://www.playframework.org) web app. To run Pheme make sure your `play` command is working. If not, download the Play Framework. Next run:
 
