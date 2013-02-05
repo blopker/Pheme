@@ -6,7 +6,7 @@
 create table log (
   id                        varchar(255) not null,
   source_name               varchar(255),
-  type                      varchar(255),
+  log_type                  varchar(255),
   message                   varchar(255),
   created                   timestamp,
   constraint pk_log primary key (id))

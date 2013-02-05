@@ -1,6 +1,6 @@
 package controllers;
 
-import models.LogSocket;
+import models.Socket;
 
 import org.codehaus.jackson.JsonNode;
 
@@ -28,17 +28,17 @@ public class Application extends Controller {
     }
 
     /**
-     * Handle the chat websocket.
+     * Handle the websocket.
      */
-    public static WebSocket<JsonNode> logsSocket() {
+    public static WebSocket<JsonNode> socket() {
         return new WebSocket<JsonNode>() {
 
             // Called when the Websocket Handshake is done.
             public void onReady(WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out){
 
-                // Join the chat room.
+                // Join the socket.
                 try {
-                    LogSocket.connect(in, out);
+                    Socket.connect(in, out);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

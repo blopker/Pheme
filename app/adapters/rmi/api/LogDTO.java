@@ -1,6 +1,6 @@
 package adapters.rmi.api;
 
-public class LogRMI implements MessageRMI {
+public class LogDTO implements MessageRMI {
 
 	/**
 	 * 
@@ -11,7 +11,7 @@ public class LogRMI implements MessageRMI {
 	final String type;
 	final String message;
 
-	public LogRMI(String sender, String type, String message) {
+	public LogDTO(String sender, String type, String message) {
 		this.client = sender;
 		this.type = type;
 		this.message = message;
@@ -33,5 +33,4 @@ public class LogRMI implements MessageRMI {
 	public String getSender() {
 		return client;
 	}
-
 }

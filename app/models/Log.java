@@ -10,8 +10,9 @@ import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class Log extends Model {
+public class Log extends Model implements DataType {
 	
+	public static String dataType = "log";
 	
 	/**
 	 * 
@@ -26,7 +27,7 @@ public class Log extends Model {
 	public String sourceName;
 
 	@Constraints.Required
-	public String type;
+	public String logType;
 
 	@Constraints.Required
 	public String message;
@@ -40,11 +41,16 @@ public class Log extends Model {
 	public static Log create(String sourceName, String type, String message) {
 //		System.out.println("LOG: " + message);
 		Log log = new Log();
-		log.type = type.toUpperCase();
+		log.logType = type.toUpperCase();
 		log.sourceName = sourceName;
 		log.message = message;
 		log.save();
 		EventBus.post(log);
 		return log;
+	}
+
+	@Override
+	public String getDataType() {
+		return dataType;
 	}
 }

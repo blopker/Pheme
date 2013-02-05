@@ -14,13 +14,6 @@ public interface PhemeAPI extends Remote{
      * Port the computer will bind to.
      */
     public static int SERVICE_PORT = 1099;
-
-    /**
-     *  Call to add a task to the compute space.
-     * @param task
-     * @throws RemoteException
-     */
-    public void log(String name, String type, String message) throws RemoteException;
     
     public void send(List<MessageRMI> messages) throws RemoteException;
 }

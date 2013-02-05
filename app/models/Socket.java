@@ -19,31 +19,31 @@ import com.google.common.eventbus.Subscribe;
 import controllers.EventBus;
 
 /**
- * A WebSocket log viewer. Clients will get push updates of new logs and can
- * request specific log types.
+ * A WebSocket data stream. Clients will get push updates of new datatype events and can
+ * request specific datatypes.
  */
-public class LogSocket {
+public class Socket {
 	// Create a persistent log socket to track clients.
-	static LogSocket logSocket = new LogSocket();
+	static Socket logSocket = new Socket();
 	final BlockingQueue<Log> logQueue;
 	// Client list. Client is a user of the web interface.
 	private List<Client> clients = Collections
 			.synchronizedList(new ArrayList<Client>());
 
-	public LogSocket() {
+	public Socket() {
 		logQueue = new LinkedBlockingQueue<Log>();
-		
+
 		// Create a sender to read form the log queue.
 		LogSender logSender = new LogSender();
 		Thread t = new Thread(logSender);
 		t.start();
-		
+
 		// Get in on the awesome event bus action.
 		EventBus.subscribe(this);
 	}
 
 	/**
-	 * Connect/register a client to the current Log Socket instance.
+	 * Connect/register a client to the current Socket instance.
 	 */
 	public static void connect(WebSocket.In<JsonNode> in,
 			final WebSocket.Out<JsonNode> out) throws Exception {

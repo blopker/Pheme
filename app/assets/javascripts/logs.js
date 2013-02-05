@@ -3,18 +3,7 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
   var buttonList = {};
   var logList;
 
-  function newLogs (event) {
-      var data = JSON.parse(event.data);
-
-      // Handle errors
-      if(data.error) {
-        chatSocket.close();
-        $("#onError span").text(data.error);
-        $("#onError").show();
-        return;
-      } else {
-        $("#onLog").show();
-      }
+  function newLogs (event, data) {
 
       for (var i = 0; i < data.length; i++) {
         addLog(data[i]);
@@ -25,7 +14,7 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
   function addLog (log) {
     var d = new Date(log.created);
     logList.add({
-      type: log.type,
+      type: log.logType,
       name: log.sourceName,
       date: d.toLocaleTimeString(),
       sort_date: log.created.toString(),
@@ -33,7 +22,7 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
     });
 
     updateComponents(log.sourceName);
-    updateButtons(log.type, log.type);
+    updateButtons(log.logType, log.logType);
   }
 
   function updateComponents (name) {
@@ -74,8 +63,7 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
   }
 
   function run () {
-    var connection = socket.connect(window.socketURL);
-    connection.onmessage = newLogs;
+    socket.on('log', newLogs);
     initList();
     updateButtons("ALL", "");
   }

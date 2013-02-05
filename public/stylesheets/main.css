@@ -62,7 +62,7 @@ footer{
     overflow: hidden;
 }
 
-#onError, #onLog {
+#onError {
     display: none;
 }
 

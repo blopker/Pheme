@@ -24,7 +24,7 @@ public class Pheme {
 	
 	public void log(String name, String type, String message){
 		try {
-			messageQueue.put(new LogRMI(name, type, message));
+			messageQueue.put(new LogDTO(name, type, message));
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}

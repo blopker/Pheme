@@ -13,7 +13,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import models.Log;
 
-import adapters.rmi.api.LogRMI;
+import adapters.rmi.api.LogDTO;
 import adapters.rmi.api.MessageRMI;
 import adapters.rmi.api.PhemeAPI;
 
@@ -72,13 +72,6 @@ public class RMI extends UnicastRemoteObject implements PhemeAPI {
 	}
 
 	@Override
-	public void log(String name, String type, String message)
-			throws RemoteException {
-		System.out.println("got log:" + name);
-		Log.create(name, type, message);
-	}
-
-	@Override
 	public void send(List<MessageRMI> messages) throws RemoteException {
 			messageQueue.addAll(messages);
 			System.out.println("Got " + messages.size() + " messages.");
@@ -92,8 +85,8 @@ public class RMI extends UnicastRemoteObject implements PhemeAPI {
 				MessageRMI m;
 				try {
 					m = messageQueue.take();
-					if (m instanceof LogRMI) {
-						LogRMI log = (LogRMI) m;
+					if (m instanceof LogDTO) {
+						LogDTO log = (LogDTO) m;
 						Log.create(log.getClient(), log.getType(),
 								log.getMessage());
 //						System.out.println(log.getMessage());
