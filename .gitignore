@@ -9,3 +9,4 @@ bin
 .settings
 .project
 .target
+RUNNING_PID
