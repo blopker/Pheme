@@ -1,4 +1,5 @@
-# Pheme
+![Pheme](https://raw.github.com/blopker/Pheme/master/logo.png)
+
 #### Web based admin interface for jPregel
 
 View Pheme's [project page](http://blopker.github.com/Pheme/).
