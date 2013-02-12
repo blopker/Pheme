@@ -1,30 +1,24 @@
 package test;
 
-import models.Socket;
+import models.clients.SocketClient;
+import models.datatypes.DataType;
+import models.datatypes.Log;
 
-import org.junit.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.webbitserver.netty.WebSocketClient;
-
-import play.mvc.*;
-import play.test.*;
-import play.libs.*;
-import play.libs.F.Callback;
-
-import static play.test.Helpers.*;
-import static org.fest.assertions.Assertions.*;
+import org.junit.Test;
 
 public class SocketTest {
-//	@Test
-//	public void testSocket() {
-//		running(testServer(3333), new Runnable() {
-//			@Override
-//			public void run() {
-//				new WebSocketClient("ws://localhost/socket", new WebSocketh);
-//				
-//			}
-//	    });
-//
-//	}
+	
+	class TestSocketClient extends SocketClient{
+		public boolean hasData(DataType data) {
+			return this.dataQueue.contains(data);
+		}
+	}
+	
+	@Test
+	public void testSocketClient() {
+		Log log = new Log(); 
+		TestSocketClient client = new TestSocketClient();
+		client.send(log);
+		client.hasData(log);
+	}
 }

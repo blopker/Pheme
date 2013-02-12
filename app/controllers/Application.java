@@ -1,6 +1,7 @@
 package controllers;
 
-import models.Socket;
+import models.clients.ClientManager;
+import models.clients.SocketClient;
 
 import org.codehaus.jackson.JsonNode;
 
@@ -13,6 +14,7 @@ import views.html.index;
 public class Application extends Controller {
 
 
+	
     /**
      * Display the start page.
      */
@@ -35,13 +37,8 @@ public class Application extends Controller {
 
             // Called when the Websocket Handshake is done.
             public void onReady(WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out){
-            	
-                // Join the socket.
-                try {
-                    Socket.connect(in, out);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+            	SocketClient client = new SocketClient(in, out);
+            	ClientManager.addClient(client);
             }
         };
     }

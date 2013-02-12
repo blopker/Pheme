@@ -3,21 +3,27 @@
 	<property name="hostname" value="localhost" />
 	<property name="build_dir" location="bin" />
 	<property name="dist_dir" location="dist" />
-	<property name="phemeapi_dir" location="app/adapters/rmi/api" />
-	<property name="src" location="client:${phemeapi_dir}" />
+	<property name="phemeapi_dir" location="adapters/rmi/api" />
+	<property name="src" location="client:app/${phemeapi_dir}" />
 
-	<target name="runClient" depends="build">
+	<target name="runClient" depends="buildClient">
 		<java jar="${dist_dir}/PhemeRMIClient.jar" fork="true">
 			<arg value="${hostname}" />
 		</java>
 	</target>
 
-	<target name="build" depends="compile">
+	<target name="buildClient" depends="buildAPI">
 		<mkdir dir="${dist_dir}" />
 		<jar jarfile="${dist_dir}/PhemeRMIClient.jar" basedir="${build_dir}">
 			<manifest>
 				<attribute name="Main-Class" value="rmi.TestClient" />
 			</manifest>
+		</jar>
+	</target>
+
+	<target name="buildAPI" depends="compile">
+		<mkdir dir="${dist_dir}" />
+		<jar jarfile="${build_dir}/PhemeAPI_RMI.jar" basedir="${build_dir}/${phemeapi_dir}">
 		</jar>
 	</target>
 

@@ -1,24 +1,25 @@
 package models.datatypes;
 
 import java.util.*;
+
 import javax.persistence.*;
 
 import controllers.EventBus;
 
-import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
+import play.db.ebean.Model;
 
 @Entity
-public class Log extends Model implements DataType {
-	
-	private static String dataType = "log";
+public class Log extends Model implements DataType{
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1798964561277533958L;
 
+	private static String dataType = "log";
+	
 	@Id
 	@Constraints.Min(10)
 	public String id = UUID.randomUUID().toString();
@@ -38,7 +39,7 @@ public class Log extends Model implements DataType {
 	public static Finder<Long, Log> find = new Finder<Long, Log>(Long.class,
 			Log.class);
 
-	public static Log create(String sourceName, String type, String message) {
+	public static DataType create(String sourceName, String type, String message) {
 //		System.out.println("LOG: " + message);
 		Log log = new Log();
 		log.logType = type.toUpperCase();

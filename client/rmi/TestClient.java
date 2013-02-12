@@ -2,8 +2,6 @@ package rmi;
 
 import java.util.Random;
 
-import adapters.rmi.api.Pheme;
-
 public class TestClient implements Runnable{
 	Pheme pheme;
 
