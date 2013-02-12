@@ -4,36 +4,39 @@
 	<property name="build_dir" location="bin" />
 	<property name="dist_dir" location="dist" />
 	<property name="phemeapi_dir" location="adapters/rmi/api" />
-	<property name="src" location="client:app/${phemeapi_dir}" />
+	<property name="client_src" location="clients" />
+	<property name="API_src" location="app/adapters/rmi/api" />
 
-	<target name="runClient" depends="buildClient">
-		<java jar="${dist_dir}/PhemeRMIClient.jar" fork="true">
+	<target name="runClient" depends="compileClient">
+		<java classname="rmi.TestClient" fork="true">
+			<classpath>
+				<pathelement location="${build_dir}/PhemeAPI_RMI.jar"/>
+				<pathelement path="${build_dir}"/>
+			</classpath>
 			<arg value="${hostname}" />
 		</java>
 	</target>
 
-	<target name="buildClient" depends="buildAPI">
-		<mkdir dir="${dist_dir}" />
-		<jar jarfile="${dist_dir}/PhemeRMIClient.jar" basedir="${build_dir}">
-			<manifest>
-				<attribute name="Main-Class" value="rmi.TestClient" />
-			</manifest>
-		</jar>
+	<target name="compileClient" depends="buildAPI" description="compile the source">
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac includeantruntime="false"
+			srcdir="${client_src}"
+			destdir="${build_dir}"
+			classpath="${build_dir}/PhemeAPI_RMI.jar"/>
 	</target>
 
-	<target name="buildAPI" depends="compile">
+	<target name="buildAPI" depends="compileAPI" description="make the API JAR">
 		<mkdir dir="${dist_dir}" />
-		<jar jarfile="${build_dir}/PhemeAPI_RMI.jar" basedir="${build_dir}/${phemeapi_dir}">
-		</jar>
+		<jar jarfile="${build_dir}/PhemeAPI_RMI.jar" basedir="${build_dir}"/>
+		<delete dir="${build_dir}/adapters" />
 	</target>
 
-	<target name="compile" description="compile the source">
+	<target name="compileAPI" description="compile the API classes">
+		<delete dir="${build_dir}" />
 		<!-- Create the build directory structure used by compile -->
 		<mkdir dir="${build_dir}" />
 		<!-- Compile the java code from ${src} into ${build} -->
-		<javac includeantruntime="false" srcdir="${src}" destdir="${build_dir}">
-
-		</javac>
+		<javac includeantruntime="false" srcdir="${API_src}" destdir="${build_dir}"/>
 	</target>
 
 	<target name="javadoc" description="create javadocs">

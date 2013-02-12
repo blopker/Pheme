@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import models.datatypes.DataType;
-import models.datatypes.Log;
 
 import com.google.common.eventbus.Subscribe;
 
