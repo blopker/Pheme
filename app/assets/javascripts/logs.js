@@ -1,4 +1,4 @@
-define(['lib/socket', 'lib/list.min'], function(socket) {
+define(['lib/socket', 'datatypes', 'lib/list.min'], function(socket, datatypes) {
   'use strict';
   var componentList = {};
   var buttonList = {};
@@ -64,7 +64,7 @@ define(['lib/socket', 'lib/list.min'], function(socket) {
   }
 
   function run () {
-    socket.on('log', newLogs);
+    socket.on(datatypes.LOG, newLogs);
     initList();
     updateButtons('ALL', '');
   }

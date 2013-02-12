@@ -4,6 +4,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import adapters.rmi.api.DTOs.DTO;
+
 
 public interface PhemeAPI extends Remote{
 	/**
@@ -15,5 +17,5 @@ public interface PhemeAPI extends Remote{
      */
     public static int SERVICE_PORT = 1099;
     
-    public void send(List<MessageRMI> messages) throws RemoteException;
+    public void send(List<DTO> messages) throws RemoteException;
 }

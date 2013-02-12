@@ -22,6 +22,7 @@
     "jquery": true,
     "predef" : [
          "require",
+         "requirejs",
          "define",
          "notify"
      ]

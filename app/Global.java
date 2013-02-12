@@ -1,6 +1,6 @@
 import java.rmi.RemoteException;
 
-import adapters.rmi.RMI;
+import adapters.rmi.RemoteService;
 import play.*;
 
 public class Global extends GlobalSettings {
@@ -9,7 +9,7 @@ public class Global extends GlobalSettings {
   public void onStart(Application app) {
     Logger.info("Application has started");
     try {
-		RMI.start();
+		RemoteService.start();
 	} catch (RemoteException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -19,7 +19,7 @@ public class Global extends GlobalSettings {
   @Override
   public void onStop(Application app) {
     Logger.info("Application shutdown...");
-    RMI.stop();
+    RemoteService.stop();
   }  
     
 }

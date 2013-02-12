@@ -11,15 +11,9 @@ import play.db.ebean.Model;
 import controllers.EventBus;
 
 public class Count extends Model implements DataType{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1974692107443461977L;
-
-
-	private static String dataType = "count";
-	
-	
+		
 	@Id
 	@Constraints.Min(10)
 	public String id = UUID.randomUUID().toString();
@@ -36,23 +30,27 @@ public class Count extends Model implements DataType{
 	@Formats.DateTime(pattern = "dd/MM/yyyy")
 	public Date created = new Date();
 
-	public static Finder<Long, Count> find = new Finder<Long, Count>(Long.class,
+	public static Finder<String, Count> find = new Finder<String, Count>(String.class,
 			Count.class);
 
 	public static DataType create(String sourceName, String counterName, long addToCount) {
 //		System.out.println("count: " + addToCount);
-		Count count = new Count();
-		count.counterName = counterName.toLowerCase();
-		count.sourceName = sourceName.toLowerCase();
-		count.addToCount = addToCount;
+		Count count = Count.find.where().eq("sourceName", sourceName).eq("counterName", counterName).findUnique();
+		if (count == null) {
+			count = new Count();
+			count.counterName = counterName.toLowerCase();
+			count.sourceName = sourceName.toLowerCase();
+			count.addToCount = 0;
+		}
+		count.addToCount += addToCount;
 		count.save();
 		EventBus.post(count);
 		return count;
 	}
 	
 	@Override
-	public String getDataType() {
-		return dataType;
+	public DataTypes getDataType() {
+		return DataTypes.COUNT;
 	}
 
 }

@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import adapters.rmi.api.MessageRMI;
+import adapters.rmi.api.DTOs.LogDTO;
+import adapters.rmi.api.DTOs.DTO;
 
 public class Pheme {
-	final BlockingQueue<MessageRMI> messageQueue;
+	final BlockingQueue<DTO> messageQueue;
 
 	public Pheme(String hostname) {
-		messageQueue = new LinkedBlockingQueue<MessageRMI>();
+		messageQueue = new LinkedBlockingQueue<DTO>();
 		Sender sender = new Sender(hostname);
 		Thread t = new Thread(sender);
 		t.start();
@@ -29,7 +30,7 @@ public class Pheme {
 		}
 	}
 	
-	public void send(MessageRMI m){
+	public void send(DTO m){
 		try {
 			messageQueue.put(m);
 		} catch (InterruptedException e1) {
@@ -96,7 +97,7 @@ public class Pheme {
 		@Override
 		public void run() {
 			connectAPI();
-			List<MessageRMI> messages = new ArrayList<MessageRMI>();
+			List<DTO> messages = new ArrayList<DTO>();
 			while(true){
 				try {
 					messages.add(messageQueue.take());
