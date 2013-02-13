@@ -106,3 +106,10 @@ footer{
     margin: 0 auto;
     display: block;
 }
+
+
+.stats-plain li.active{
+    padding: 10px;
+    background-color: #e5e5e5;
+    border: 1px solid #cdcdcd;
+}

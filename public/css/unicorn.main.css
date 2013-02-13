@@ -49,7 +49,7 @@ a:hover {
 	border-radius: 4px 0 0 4px;
 	padding: 4px 10px 5px;
 	border: 0;
-	box-shadow: 2px 2px 3px rgba(0,0,0,0.7) inset, 0 1px 0 rgba(255,255,255,0.2); 
+	box-shadow: 2px 2px 3px rgba(0,0,0,0.7) inset, 0 1px 0 rgba(255,255,255,0.2);
 	width: 100px;
 }
 
@@ -58,7 +58,7 @@ a:hover {
 	margin-top: -11px;
 	padding: 5px 10px 4px;
 	border-radius: 0 4px 4px 0;
-	box-shadow: -2px 2px 3px rgba(0,0,0,0.7) inset, 0 1px 0 rgba(255,255,255,0.2); 
+	box-shadow: -2px 2px 3px rgba(0,0,0,0.7) inset, 0 1px 0 rgba(255,255,255,0.2);
 }
 #search button i {
 	opacity: 0.5;
@@ -141,7 +141,7 @@ a:hover {
 	width: 220px;
 }
 #sidebar > ul > li {
-	display: block;	
+	display: block;
 	position: relative;
 }
 
@@ -321,7 +321,7 @@ a:hover {
 	margin-top: 4px;
 	border-style: solid;
 	border-width: 1px;
-	border-color: transparent;	
+	border-color: transparent;
 }
 /* Footer */
 #footer {
@@ -332,7 +332,7 @@ a:hover {
 .stat-boxes, .quick-actions, .quick-actions-horizontal, .stats-plain {
     display: inline-block;
     list-style: none outside none;
-    margin: 20px 0 10px;
+    margin: 10px 0 10px;
     text-align: center;
 }
 .stats-plain {
@@ -404,7 +404,7 @@ a:hover {
 	width: 16px;
 	height: 16px;
 	display: inline-block;
-	margin: -2px 0 0 !important; 
+	margin: -2px 0 0 !important;
 	border-right: 1px solid #dddddd;
 	margin-right: 10px;
 	padding: 10px;
@@ -1147,10 +1147,10 @@ span.icon .checker {
 }
 
 .dataTables_paginate .first{
-    border-radius: 4px 0 0 4px;    
+    border-radius: 4px 0 0 4px;
 }
 .dataTables_paginate .last {
-    border-radius: 0 4px 4px 0;    
+    border-radius: 0 4px 4px 0;
 }
 .dataTables_paginate .ui-state-disabled, .fc-state-disabled, .pagination.alternate li.disabled a {
     color: #AAAAAA !important;
@@ -1220,7 +1220,7 @@ div.dataTables_wrapper .ui-widget-header {
 	background-color: #FFFFE3 !important;
 }
 /* Misc */
-.nopadding {	
+.nopadding {
 	padding: 0 !important;
 }
 .nopadding .table {
@@ -1428,7 +1428,7 @@ form {
 		top: 0;
 		min-width: 150px;
 		box-shadow: 0 1px 5px rgba(0,0,0,0.7);
-		border-radius: 5px;		
+		border-radius: 5px;
 		list-style: none;
 	}
 	#sidebar > ul ul li a {
