@@ -17,21 +17,21 @@ a:hover {
 
 /* Header */
 #header {
-    height: 77px;
+/*    height: 77px;
     position: relative;
     width: 100%;
-    z-index: -9;
+    z-index: -9;*/
 }
 
 #header h1 {
-    background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
+/*    background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
     height: 31px;
     left: 15px;
     line-height: 600px;
     overflow: hidden;
     position: relative;
     top: 24px;
-    width: 191px;
+    width: 191px;*/
 }
 
 #header h1 a {

@@ -113,3 +113,8 @@ footer{
     background-color: #e5e5e5;
     border: 1px solid #cdcdcd;
 }
+
+#header img{
+    padding-left: 10px;
+    width: 200px;
+}
