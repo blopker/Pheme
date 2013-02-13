@@ -3,6 +3,7 @@ package models.datatypes;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import play.data.format.Formats;
@@ -10,6 +11,7 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import controllers.EventBus;
 
+@Entity
 public class Count extends Model implements DataType{
 
 	private static final long serialVersionUID = 1974692107443461977L;
@@ -22,10 +24,10 @@ public class Count extends Model implements DataType{
 	public String sourceName;
 
 	@Constraints.Required
-	public String counterName;
+	public String countName;
 
 	@Constraints.Required
-	public long addToCount;
+	public long count;
 
 	@Formats.DateTime(pattern = "dd/MM/yyyy")
 	public Date created = new Date();
@@ -33,18 +35,21 @@ public class Count extends Model implements DataType{
 	public static Finder<String, Count> find = new Finder<String, Count>(String.class,
 			Count.class);
 
-	public static DataType create(String sourceName, String counterName, long addToCount) {
-//		System.out.println("count: " + addToCount);
-		Count count = Count.find.where().eq("sourceName", sourceName).eq("counterName", counterName).findUnique();
+	public static DataType create(String sourceName, String countName, long addToCount) {
+		
+		Count count = Count.find.where().eq("sourceName", sourceName).eq("countName", countName).findUnique();
 		if (count == null) {
 			count = new Count();
-			count.counterName = counterName.toLowerCase();
-			count.sourceName = sourceName.toLowerCase();
-			count.addToCount = 0;
+			count.countName = countName;
+			count.sourceName = sourceName;
+			count.count = 0;
 		}
-		count.addToCount += addToCount;
-		count.save();
+		
+		count.count += addToCount;
+//		System.out.println("count: " + count.count + " " + count.sourceName);
+//		System.out.println("counts: " + Count.find.all().size());
 		EventBus.post(count);
+		count.save();
 		return count;
 	}
 	

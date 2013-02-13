@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import adapters.rmi.api.DTOs.CountDTO;
 import adapters.rmi.api.DTOs.LogDTO;
 import adapters.rmi.api.DTOs.DTO;
 
@@ -28,6 +29,14 @@ public class Pheme {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public void count(String myName, String counterName, long amountToAdd) {
+		try {
+			messageQueue.put(new CountDTO(myName, counterName, amountToAdd));
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}		
 	}
 	
 	public void send(DTO m){

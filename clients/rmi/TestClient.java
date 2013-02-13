@@ -32,8 +32,8 @@ public class TestClient implements Runnable{
 				Thread.sleep(100);
 				pheme.log(myName, types[count % types.length], "Will the real TestClient please stand up?" + System.getProperty("line.separator") + count);
 				System.out.println(myName + " sent log " + count);
-//				pheme.count(myName, "Test Counter", 1);
-//				System.out.println(myName + " sent added count " + 1);
+				pheme.count(myName, "Test Counter", 1);
+				System.out.println(myName + " sent added count " + 1);
 				count++;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
