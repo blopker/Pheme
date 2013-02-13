@@ -25,6 +25,6 @@ Finally you can go through all the unittests by running:
 
 ### Screenshots
 
-Logs
+Job Page
 
 ![Logs](https://github.com/blopker/Pheme/blob/master/pheme_logs.PNG?raw=true)
