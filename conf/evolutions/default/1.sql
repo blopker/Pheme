@@ -6,7 +6,7 @@
 create table count (
   id                        varchar(255) not null,
   source_name               varchar(255),
-  counter_name              varchar(255),
+  count_name                varchar(255),
   count                     bigint,
   created                   timestamp,
   constraint pk_count primary key (id))
