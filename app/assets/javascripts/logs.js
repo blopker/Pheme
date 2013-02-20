@@ -1,4 +1,4 @@
-define(['lib/socket', 'datatypes', 'lib/dataTable'], function(socket, datatypes, DataTable) {
+define(['lib/socket', 'datatype/datatypes', 'lib/dataTable'], function(socket, datatypes, DataTable) {
   'use strict';
   var buttonList = {};
   var logList;
