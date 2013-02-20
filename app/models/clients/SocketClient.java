@@ -29,7 +29,6 @@ public class SocketClient implements Runnable, Client {
 	
 	public SocketClient(final WebSocket.In<JsonNode> in,
 			final WebSocket.Out<JsonNode> out) {
-		System.out.println("SocketClient connected!");
 		this.in = in;
 		this.out = out;
 
@@ -52,8 +51,8 @@ public class SocketClient implements Runnable, Client {
 			@Override
 			public void invoke() throws Throwable {
 				// Remove client from our active client list.
-				self.kill();
 				ClientManager.removeClient(self);
+				self.kill();
 			}
 		});
 	}
@@ -87,7 +86,7 @@ public class SocketClient implements Runnable, Client {
 				out.write(Json.toJson(dataPackage));
 				dataPackage.clear();
 			} catch (InterruptedException e) {
-				System.out.println("SocketClient disconnected!");
+				// Client was killed.
 			}
 		}
 

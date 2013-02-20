@@ -15,7 +15,7 @@ define(['lib/pubsub'], function(pubsub){
       print('Sockets not supported!');
       return;
     }
-    var connection = new WS('ws://localhost:9000/socket');
+    var connection = new WS(WS_URL);
     connection.onmessage = onMessage;
   })();
 

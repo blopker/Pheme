@@ -1,44 +1,19 @@
-define(['lib/socket', 'datatypes', 'lib/list.min'], function(socket, datatypes) {
+define(['lib/socket', 'datatypes', 'lib/dataTable'], function(socket, datatypes, DataTable) {
   'use strict';
-  var componentList = {};
   var buttonList = {};
   var logList;
 
   function newLogs (event, data) {
-
       for (var i = 0; i < data.length; i++) {
         addLog(data[i]);
       }
-      logList.sort('sortDate', {asc: false});
   }
 
   function addLog (log) {
     var d = new Date(log.created);
-    logList.add({
-      type: log.logType,
-      name: log.sourceName,
-      date: d.toLocaleTimeString(),
-      sortDate: log.created.toString(),
-      message: log.message
-    });
-
-    updateComponents(log.sourceName);
+    var level = '[' + log.logType + ']';
+    logList.addData([level, log.message, log.sourceName, d.getTime()]);
     updateButtons(log.logType, log.logType);
-  }
-
-  function updateComponents (name) {
-    // Update the members list
-    if (!componentList[name]) {
-      componentList[name] = name;
-      var com = $('<li>' + name + '</li>');
-      com.click(function() {
-        logList.filter(function(item) {
-          if (item.values().name === name) {return true;}
-          return false;
-        });
-      });
-      $('#components').append(com);
-    }
   }
 
   function updateButtons (name, filter) {
@@ -56,11 +31,8 @@ define(['lib/socket', 'datatypes', 'lib/list.min'], function(socket, datatypes) 
   }
 
   function initList () {
-    var options = {
-      item: '<li class="log">[<span class="type"></span>] <span class="name"></span> (<span class="date"></span>): <span class="message"></span></li>'
-    };
-    logList = new List('logs', options);
-
+    logList = new DataTable('.data-table');
+    logList.sortByColumn(3);
   }
 
   function run () {
@@ -72,4 +44,5 @@ define(['lib/socket', 'datatypes', 'lib/list.min'], function(socket, datatypes) 
   return {
     run: run
   };
+
 });

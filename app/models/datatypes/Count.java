@@ -5,11 +5,14 @@ import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import models.Component;
+import models.EventBus;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
-import controllers.EventBus;
 
 @Entity
 public class Count extends Model implements DataType{
@@ -20,11 +23,12 @@ public class Count extends Model implements DataType{
 	@Constraints.Min(10)
 	public String id = UUID.randomUUID().toString();
 
+	@ManyToOne
 	@Constraints.Required
-	public String sourceName;
+	public Component component;
 
 	@Constraints.Required
-	public String countName;
+	public String counterName;
 
 	@Constraints.Required
 	public long count;
@@ -35,13 +39,13 @@ public class Count extends Model implements DataType{
 	public static Finder<String, Count> find = new Finder<String, Count>(String.class,
 			Count.class);
 
-	public static DataType create(String sourceName, String countName, long addToCount) {
+	public static DataType create(Component component, String counterName, long addToCount) {
 		
-		Count count = Count.find.where().eq("sourceName", sourceName).eq("countName", countName).findUnique();
+		Count count = Count.find.where().eq("component", component).eq("counterName", counterName).findUnique();
 		if (count == null) {
 			count = new Count();
-			count.countName = countName;
-			count.sourceName = sourceName;
+			count.counterName = counterName;
+			count.component = component;
 			count.count = 0;
 		}
 		

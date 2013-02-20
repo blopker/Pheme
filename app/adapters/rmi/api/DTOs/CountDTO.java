@@ -12,7 +12,7 @@ public class CountDTO implements DTO{
 		this.countToAdd = countToAdd;
 	}
 	
-	public String getSender() {
+	public String getSenderName() {
 		return sender;
 	}
 
@@ -27,6 +27,11 @@ public class CountDTO implements DTO{
 	@Override
 	public String getDataType() {
 		return "count";
+	}
+
+	@Override
+	public String getSenderType() {
+		return null;
 	}
 
 }

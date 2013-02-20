@@ -17,7 +17,7 @@ public class RouteTest {
 		assertThat(status(result)).isEqualTo(OK);
 		assertThat(contentType(result)).isEqualTo("text/html");
 		assertThat(charset(result)).isEqualTo("utf-8");
-		assertThat(contentAsString(result)).contains("Welcome to Pheme!");
+		assertThat(contentAsString(result)).contains("TSP");
 	}
 	
 	@Test
@@ -26,6 +26,6 @@ public class RouteTest {
 		assertThat(status(result)).isEqualTo(OK);
 		assertThat(contentType(result)).isEqualTo("text/html");
 		assertThat(charset(result)).isEqualTo("utf-8");
-		assertThat(contentAsString(result)).contains("Log Viewer");
+		assertThat(contentAsString(result)).contains("Logs");
 	}
 }

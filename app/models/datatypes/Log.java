@@ -4,7 +4,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import controllers.EventBus;
+import models.EventBus;
+
 
 import play.data.format.*;
 import play.data.validation.*;

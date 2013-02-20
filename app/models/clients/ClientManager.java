@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import models.EventBus;
 import models.datatypes.DataType;
 
 import com.google.common.eventbus.Subscribe;
 
-import controllers.EventBus;
 
 /**
  * A WebSocket data stream. Clients will get push updates of new datatype events
@@ -39,9 +39,11 @@ public class ClientManager {
 
 	public static void removeClient(Client client) {
 		socket.clients.remove(client);
+		System.out.println("Client disconnected! " + socket.clients.size() + " still active.");
 	}
 	
 	public static void addClient(Client client) {
 		socket.clients.add(client);
+		System.out.println("Client connected! " + socket.clients.size() + " active.");
 	}
 }

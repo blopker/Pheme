@@ -13,10 +13,6 @@ public class LogDTO implements DTO {
 		this.message = message;
 	}
 
-	public String getSender() {
-		return client;
-	}
-
 	public String getType() {
 		return type;
 	}
@@ -28,5 +24,16 @@ public class LogDTO implements DTO {
 	@Override
 	public String getDataType() {
 		return "log";
+	}
+
+	@Override
+	public String getSenderName() {
+		return client;
+	}
+
+	@Override
+	public String getSenderType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

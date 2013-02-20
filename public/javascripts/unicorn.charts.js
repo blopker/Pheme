@@ -4,7 +4,7 @@
 **/
 $(document).ready(function(){
 
-
+    if ($('.chart')[0]) {
 	// === Prepare the chart data ===/
 	var sin = [], cos = [];
     for (var i = 0; i < 14; i += 0.5) {
@@ -47,17 +47,9 @@ $(document).ready(function(){
             previousPoint = null;
         }
     });
+    };
 
 
-    $('.data-table').dataTable({
-        "bJQueryUI": true,
-        "sPaginationType": "full_numbers",
-        "sDom": '<""l>t<"F"fp>'
-    });
-
-    $('input[type=checkbox],input[type=radio],input[type=file]').uniform();
-
-    // $('select').select2();
 
     $("span.icon input:checkbox, th input:checkbox").click(function() {
         var checkedStatus = this.checked;
