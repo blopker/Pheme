@@ -2,9 +2,9 @@
 @main(navLoc = title.toLowerCase()) {
     <div id="content-header">
       <h1>@title</h1>
-      <div class="btn-group">
+<!--       <div class="btn-group">
           <a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
-      </div>
+      </div> -->
     </div>
     <div id="breadcrumb">
       <a href="/" title="Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
@@ -31,14 +31,14 @@
                 <thead>
                 <tr>
                 <th>Name</th>
-                <th>ID</th>
+                <th>Created</th>
                 </tr>
                 </thead>
                 <tbody>
                   @for(component <- components){
                     <tr class="gradeX">
                     <td><a href="@routes.Application.computer(component.id)" title="">@component.componentName</a></td>
-                    <td>@component.id</td>
+                    <td>@component.created</td>
                     </tr>
                   }
                 </tbody>

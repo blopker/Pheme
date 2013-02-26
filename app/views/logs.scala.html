@@ -2,25 +2,15 @@
 @main(navLoc = "logs") {
     <div id="content-header">
       <h1>Logs</h1>
-      <div class="btn-group">
+<!--       <div class="btn-group">
           <a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
-      </div>
+      </div> -->
     </div>
     <div id="breadcrumb">
       <a href="#" title="Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
       <a href="#" class="current">Logs</a>
     </div>
     <div class="container-fluid">
-      @if(logs.size() == 0){
-      <div class="row-fluid">
-      <div class="span12">
-      <div class="alert">
-        <button class="close" data-dismiss="alert">×</button>
-        <strong>Oh No!</strong> There are no logs to display.
-      </div>
-      </div>
-      </div>
-      }
       <div class="widget-box">
         <div class="widget-title">
             <h5>Logs</h5>
@@ -36,16 +26,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @for(log <- logs){
+   <!--                @for(log <- logs){
                   <tr class="gradeX">
                     <td>[@log.logType.toUpperCase()]</td>
                     <td>@log.message</td>
-                    <td>@log.sourceName</td>
+                    <td>@log.component.componentName</td>
                     <td class="center">@log.created</td>
                   </tr>
-                  }
+                  } -->
                 </tbody>
             </table>
         </div>
       </div>
+
+      <script>
+        var script_to_run = 'logs';
+      </script>
 }

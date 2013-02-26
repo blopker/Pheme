@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import models.Component;
 import models.EventBus;
 
 
@@ -20,8 +21,9 @@ public class Log extends Model implements DataType{
 	@Constraints.Min(10)
 	public String id = UUID.randomUUID().toString();
 
+	@ManyToOne
 	@Constraints.Required
-	public String sourceName;
+	public Component component;
 
 	@Constraints.Required
 	public String logType;
@@ -39,11 +41,11 @@ public class Log extends Model implements DataType{
 		return Log.find.all();
 	}
 
-	public static DataType create(String sourceName, String type, String message) {
+	public static DataType create(Component component, String type, String message) {
 		System.out.println("LOG: " + message);
 		Log log = new Log();
 		log.logType = type.toUpperCase();
-		log.sourceName = sourceName;
+		log.component = component;
 		log.message = message.replace(System.getProperty("line.separator"), "<br/>\n");
 		log.save();
 		EventBus.post(log);

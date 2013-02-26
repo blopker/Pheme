@@ -28,7 +28,7 @@
             <a href="@routes.Application.index()"><img src="@routes.Assets.at("img/logo-white.png")" alt="Pheme"></a>
         </div>
 
-        @nav(navLoc)
+        @nav(navLoc.toLowerCase())
 
         <div id="content">
             @content

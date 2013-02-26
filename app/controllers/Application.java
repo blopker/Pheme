@@ -49,7 +49,11 @@ public class Application extends Controller {
      * Inspect a specific job
      */
     public static Result job(String id) {
-    	return ok(component.render());
+    	Component job = Component.get(id);
+    	if (job == null) {
+			return notFound("<h1>Page not found</h1>").as("text/html");
+		}
+    	return ok(component.render(job));
 	}
     
     /**
@@ -64,16 +68,12 @@ public class Application extends Controller {
      * Inspect a specific computer
      */
     public static Result computer(String id) {
-		return ok(component.render());
+    	Component computer = Component.get(id);
+    	if (computer == null) {
+			return notFound("<h1>Page not found</h1>").as("text/html");
+		}
+		return ok(component.render(computer));
 	}
-
-    public static int getJobCount(){
-    	return Component.getCount(Components.JOB);
-    }
-    
-    public static int getComputerCount(){
-    	return Component.getCount(Components.COMPUTER);
-    }
 
     /**
      * Handle the websocket.

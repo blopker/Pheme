@@ -39,9 +39,9 @@ public class SocketClient implements Runnable, Client {
 		in.onMessage(new Callback<JsonNode>() {
 
 			@Override
-			public void invoke(JsonNode a) throws Throwable {
-				// Just echo for now.
-				out.write(a);
+			public void invoke(JsonNode request) throws Throwable {
+//				DataType response = JsonAPI.process(request);
+//				dataQueue.put(response);
 			}
 
 		});
@@ -59,6 +59,7 @@ public class SocketClient implements Runnable, Client {
 
 	public void kill() {
 		out.close();
+		dataQueue.clear();
 		if (t.isAlive()) {
 			t.interrupt();
 		}

@@ -36,7 +36,7 @@ public class Component extends Model {
 		return Component.find.where().eq("componentType", type).findList();
 	}
 	
-	public static Component get(String componentName, Components type) {
+	public static Component findOrCreate(String componentName, Components type) {
 		Component component = Component.find.where().eq("componentName", componentName).eq("componentType", type).findUnique();
 		if (component == null) {
 			component = new Component();
@@ -48,12 +48,8 @@ public class Component extends Model {
 		return component;
 	}
 	
-	public String getName() {
-		return componentName;
-	}
-	
-	public Components getType() {
-		return componentType;
+	public static Component get(String id) {
+		return Component.find.byId(id);
 	}
 	
 	public static int getCount(Components type){

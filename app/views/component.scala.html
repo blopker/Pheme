@@ -1,0 +1,94 @@
+@(component: Component)
+@main(navLoc = component.componentType.toString()) {
+  <div id="content-header">
+    <h1>@component.componentName</h1>
+<!--     <div class="btn-group">
+        <a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+    </div> -->
+  </div>
+  <div id="breadcrumb">
+    <a href="#" title="Jobs" class="tip-bottom"><i class="icon-home"></i> Jobs</a>
+    <a href="#" class="current">@component.componentName</a>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box widget-plain">
+                <div class="widget-content center">
+                    <ul class="stats-plain">
+                        <li class="active">
+                            <a href="">
+                            <h4>36094</h4>
+                            <span>Paths Found</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                            <h4>1433</h4>
+                            <span>Min Path</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                            <h4>86</h4>
+                            <span>Paths/sec</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                            <h4>29</h4>
+                            <span>Percent Done</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon">
+                        <i class="icon-signal"></i>
+                    </span>
+                    <h5>Paths Found</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box">
+
+        <div class="widget-title">
+
+            <h5>Logs</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered data-table">
+                <thead>
+                <tr>
+                <th>Level</th>
+                <th>Message</th>
+                <th>Source</th>
+                <th>Time</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+                </table>
+        </div>
+
+    </div>
+  </div>
+
+  <script>
+    var component = {
+        id: @component.id
+    }
+  </script>
+}
+

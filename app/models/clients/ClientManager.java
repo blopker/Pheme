@@ -6,6 +6,7 @@ import java.util.List;
 
 import models.EventBus;
 import models.datatypes.DataType;
+import models.datatypes.Log;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -44,6 +45,7 @@ public class ClientManager {
 	
 	public static void addClient(Client client) {
 		socket.clients.add(client);
+		client.sendAll(Log.getAll());
 		System.out.println("Client connected! " + socket.clients.size() + " active.");
 	}
 }

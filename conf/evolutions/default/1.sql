@@ -23,7 +23,7 @@ create table count (
 
 create table log (
   id                        varchar(255) not null,
-  source_name               varchar(255),
+  component_id              varchar(255),
   log_type                  varchar(255),
   message                   varchar(255),
   created                   timestamp,
@@ -38,6 +38,8 @@ create sequence log_seq;
 
 alter table count add constraint fk_count_component_1 foreign key (component_id) references component (id) on delete restrict on update restrict;
 create index ix_count_component_1 on count (component_id);
+alter table log add constraint fk_log_component_2 foreign key (component_id) references component (id) on delete restrict on update restrict;
+create index ix_log_component_2 on log (component_id);
 
 
 

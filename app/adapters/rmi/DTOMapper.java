@@ -13,11 +13,11 @@ public class DTOMapper {
 	public static void map(DTO dto){
 		try{
 			DataTypes type = DataTypes.is(dto.getDataType());
-			Component component = Component.get(dto.getSenderName(), Components.COMPUTER);
+			Component component = Component.findOrCreate(dto.getSenderName(), Components.COMPUTER);
 			switch (type) {
 			case LOG:
 				LogDTO log = (LogDTO) dto;
-				Log.create(log.getSenderName(), log.getType(), log.getMessage());
+				Log.create(component, log.getType(), log.getMessage());
 				break;
 			case COUNT:
 				CountDTO count = (CountDTO) dto;
