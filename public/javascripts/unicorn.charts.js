@@ -132,15 +132,15 @@ function chart () {
 
         // Create the demo X and Y axis labels
 
-        var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>")
-            .text("Response Time (ms)")
-            .appendTo(container);
+        // var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>")
+        //     .text("Response Time (ms)")
+        //     .appendTo(container);
 
         // Since CSS transforms use the top-left corner of the label as the transform origin,
         // we need to center the y-axis label by shifting it down by half its width.
         // Subtract 20 to factor the chart's bottom margin into the centering.
 
-        yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+        // yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
         // Update the random dataset at 25FPS for a smoothly-animating chart
 
@@ -152,13 +152,13 @@ function chart () {
 
 }
 
-unicorn = {
-		// === Tooltip for flot charts === //
-		flot_tooltip: function(x, y, contents) {
+// unicorn = {
+// 		// === Tooltip for flot charts === //
+// 		flot_tooltip: function(x, y, contents) {
 
-			$('<div id="tooltip">' + contents + '</div>').css( {
-				top: y + 5,
-				left: x + 5
-			}).appendTo("body").fadeIn(200);
-		}
-}
+// 			$('<div id="tooltip">' + contents + '</div>').css( {
+// 				top: y + 5,
+// 				left: x + 5
+// 			}).appendTo("body").fadeIn(200);
+// 		}
+// }

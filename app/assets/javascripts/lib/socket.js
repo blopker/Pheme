@@ -25,20 +25,11 @@ define(['lib/pubsub'], function(pubsub){
   }
 
   function onMessage (message){
-    var eventDict = {};
     var data = JSON.parse(message.data);
 
     for (var i = 0; i < data.length; i++) {
-      var evnt = eventPrefix.concat(data[i].dataType);
-      var dataList = eventDict[evnt] || [];
-      dataList.push(data[i]);
-      eventDict[evnt] = dataList;
-    }
-
-    for (var event in eventDict){
-      if (eventDict.hasOwnProperty(event)) {
-        pubsub.publishSync(event, eventDict[event]);
-      }
+      var event = eventPrefix.concat(data[i].dataType);
+      pubsub.publishSync(event, data[i]);
     }
   }
 

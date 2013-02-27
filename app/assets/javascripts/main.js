@@ -6,6 +6,8 @@
 require(['lib/router', 'lib/domReady!'], function(router) {
   'use strict';
 
+  router(window.location.pathname)();
+
   // === Mobile Sidebar navigation === //
 
   var ul = $('#sidebar > ul');

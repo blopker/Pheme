@@ -22,14 +22,9 @@ define(['lib/socket', 'datatype/datatypes'], function(socket, datatypes) {
       this.table.fnSort([[ number, 'desc' ]]);
     },
     _setListener: function() {
-      socket.on(datatypes.LOG, this._newLogs.bind(this));
+      socket.on(datatypes.LOG, this._addLog.bind(this));
     },
-    _newLogs: function(event, data) {
-      for (var i = 0; i < data.length; i++) {
-        this._addLog(data[i]);
-      }
-    },
-    _addLog: function(log) {
+    _addLog: function(event, log) {
       if (log.component.id === this.componentId || this.componentId === '') {
         var d = new Date(log.created);
         var level = '[' + log.logType + ']';
