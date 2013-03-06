@@ -10,36 +10,7 @@
       <a href="#" title="Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
       <a href="#" class="current">Logs</a>
     </div>
-    <div class="container-fluid">
-      <div class="widget-box">
-        <div class="widget-title">
-            <h5>Logs</h5>
-        </div>
-        <div class="widget-content nopadding">
-            <table class="table table-bordered data-table">
-                <thead>
-                <tr>
-                <th>Level</th>
-                <th>Message</th>
-                <th>Source</th>
-                <th>Time</th>
-                </tr>
-                </thead>
-                <tbody>
-   <!--                @for(log <- logs){
-                  <tr class="gradeX">
-                    <td>[@log.logType.toUpperCase()]</td>
-                    <td>@log.message</td>
-                    <td>@log.component.componentName</td>
-                    <td class="center">@log.created</td>
-                  </tr>
-                  } -->
-                </tbody>
-            </table>
-        </div>
-      </div>
+    <div class="container-fluid log-holder">
 
-      <script>
-        var script_to_run = 'logs';
-      </script>
+    </div>
 }

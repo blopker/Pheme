@@ -2,7 +2,7 @@ define(['lib/logTable', 'lib/socket', 'datatype/dataTypes'], function(LogTable, 
   'use strict';
 
   function run () {
-    var logTable = new LogTable('.data-table');
+    var logTable = new LogTable('.log-holder');
     socket.on(DataTypes.LOG, logTable.addLog);
   }
 
