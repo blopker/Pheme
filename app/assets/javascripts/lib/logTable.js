@@ -1,4 +1,4 @@
-define(['datatype/datatypes', 'text!html/logs.html'], function(datatypes, html) {
+define(['text!html/logs.html'], function(html) {
   'use strict';
 
   function LogTable(selector, componentId) {

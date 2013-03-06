@@ -1,4 +1,4 @@
-define(['lib/logTable', 'lib/socket', 'datatype/dataTypes'], function(LogTable, socket, DataTypes) {
+define(['lib/logTable', 'lib/socket', 'datatype/datatypes'], function(LogTable, socket, DataTypes) {
   'use strict';
 
   function run () {
