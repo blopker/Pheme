@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import models.EventBus;
+import models.datatypes.Count;
 import models.datatypes.DataType;
 import models.datatypes.Log;
 
@@ -45,7 +46,12 @@ public class ClientManager {
 	
 	public static void addClient(Client client) {
 		socket.clients.add(client);
-		client.sendAll(Log.getAll());
+		socket.sendAllData(client);
 		System.out.println("Client connected! " + socket.clients.size() + " active.");
+	}
+	
+	private void sendAllData(Client client) {
+		client.sendAll(Count.getAll());
+		client.sendAll(Log.getAll());
 	}
 }

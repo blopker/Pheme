@@ -1,14 +1,15 @@
 package adapters.rmi.api.DTOs;
 
+import adapters.rmi.api.ComponentType;
 
-public class LogDTO implements DTO {
+
+public class LogDTO extends DTO {
 	private static final long serialVersionUID = 7838274700757079439L;
-	final String client;
 	final String type;
 	final String message;
 
-	public LogDTO(String sender, String type, String message) {
-		this.client = sender;
+	public LogDTO(String sender, ComponentType componentType, String type, String message) {
+		super(sender, componentType, "log");
 		this.type = type;
 		this.message = message;
 	}
@@ -19,21 +20,5 @@ public class LogDTO implements DTO {
 
 	public String getMessage() {
 		return message;
-	}
-
-	@Override
-	public String getDataType() {
-		return "log";
-	}
-
-	@Override
-	public String getSenderName() {
-		return client;
-	}
-
-	@Override
-	public String getSenderType() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

@@ -71,7 +71,7 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 		public void run() {
 			while (true) {
 				try {
-					DTOMapper.map(messageQueue.take());
+					DTOMapper.create(messageQueue.take());
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

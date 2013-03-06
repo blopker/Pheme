@@ -1,6 +1,7 @@
 package models.datatypes;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -39,6 +40,10 @@ public class Count extends Model implements DataType{
 	public static Finder<String, Count> find = new Finder<String, Count>(String.class,
 			Count.class);
 
+	public static List<Count> getAll() {
+		return find.all();
+	}
+	
 	public static DataType create(Component component, String counterName, long addToCount) {
 		
 		Count count = Count.find.where().eq("component", component).eq("counterName", counterName).findUnique();
@@ -50,7 +55,7 @@ public class Count extends Model implements DataType{
 		}
 		
 		count.count += addToCount;
-//		System.out.println("count: " + count.count + " " + count.sourceName);
+//		System.out.println("count: " + count.count + " " + count.counterName);
 //		System.out.println("counts: " + Count.find.all().size());
 		EventBus.post(count);
 		count.save();

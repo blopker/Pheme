@@ -5,15 +5,16 @@ import models.Components;
 import models.datatypes.Count;
 import models.datatypes.DataTypes;
 import models.datatypes.Log;
+import adapters.rmi.api.ComponentType;
 import adapters.rmi.api.DTOs.CountDTO;
 import adapters.rmi.api.DTOs.DTO;
 import adapters.rmi.api.DTOs.LogDTO;
 
 public class DTOMapper {
-	public static void map(DTO dto){
+	public static void create(DTO dto){
 		try{
 			DataTypes type = DataTypes.is(dto.getDataType());
-			Component component = Component.findOrCreate(dto.getSenderName(), Components.COMPUTER);
+			Component component = Component.findOrCreate(dto.getComponentName(), mapComponentType(dto.getComponentType()));
 			switch (type) {
 			case LOG:
 				LogDTO log = (LogDTO) dto;
@@ -28,6 +29,17 @@ public class DTOMapper {
 			}
 		} catch (IllegalArgumentException e){
 			System.out.println(DTOMapper.class.getSimpleName() + ": Data type from RMI not recognized, " + dto.getDataType());
+		}
+	}
+	
+	private static Components mapComponentType(ComponentType type) {
+		switch (type) {
+		case JOB:
+			return Components.JOB;
+		case COMPUTER:
+			return Components.COMPUTER;
+		default:
+			return Components.COMPUTER;
 		}
 	}
 }

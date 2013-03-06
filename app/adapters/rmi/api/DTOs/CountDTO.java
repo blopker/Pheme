@@ -1,19 +1,16 @@
 package adapters.rmi.api.DTOs;
 
-public class CountDTO implements DTO{
+import adapters.rmi.api.ComponentType;
+
+public class CountDTO extends DTO{
 	private static final long serialVersionUID = -6466024814639298817L;
-	final String sender;
 	final String name;
 	final long countToAdd;
 
-	public CountDTO(String sender, String name, long countToAdd) {
-		this.sender = sender;
+	public CountDTO(String sender, ComponentType componentType, String name, long countToAdd) {
+		super(sender, componentType, "count");
 		this.name = name;
 		this.countToAdd = countToAdd;
-	}
-	
-	public String getSenderName() {
-		return sender;
 	}
 
 	public String getName() {
@@ -23,15 +20,4 @@ public class CountDTO implements DTO{
 	public long getCountToAdd() {
 		return countToAdd;
 	}
-
-	@Override
-	public String getDataType() {
-		return "count";
-	}
-
-	@Override
-	public String getSenderType() {
-		return null;
-	}
-
 }
