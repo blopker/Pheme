@@ -12,76 +12,19 @@
   </div>
   <div class="container-fluid">
     <div class="row-fluid">
-        <div class="span12">
-            <div class="widget-box widget-plain">
-                <div class="widget-content center">
-                    <ul data-component='@component.id' class="stats-plain stats">
-<!--                         <li class="active">
-                            <a href="">
-                            <h4>36094</h4>
-                            <span>Paths Found</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                            <h4>1433</h4>
-                            <span>Min Path</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                            <h4>86</h4>
-                            <span>Paths/sec</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                            <h4>29</h4>
-                            <span>Percent Done</span>
-                            </a>
-                        </li> -->
-                    </ul>
-                </div>
-            </div>
+        <div data-component='@component.id' class="span12 stats-holder">
+
         </div>
     </div>
     <div class="row-fluid">
-        <div class="span12">
-            <div class="widget-box">
-                <div class="widget-title">
-                    <span class="icon">
-                        <i class="icon-signal"></i>
-                    </span>
-                    <h5 class="chart-title">Paths Found</h5>
-                </div>
-                <div class="widget-content">
-                    <div class="chart"></div>
-                </div>
-            </div>
+        <div class="span12 chart-holder">
+
         </div>
     </div>
-    <div class="widget-box">
+    <div class="row-fluid">
+        <div data-component='@component.id' class="span12 log-holder">
 
-        <div class="widget-title">
-
-            <h5>Logs</h5>
         </div>
-        <div class="widget-content nopadding">
-            <table data-component='@component.id' class="table table-bordered log-table">
-                <thead>
-                <tr>
-                <th>Level</th>
-                <th>Message</th>
-                <th>Source</th>
-                <th>Time</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-                </table>
-        </div>
-
     </div>
   </div>
 }

@@ -44,7 +44,7 @@ public class Component extends Model {
 			component.componentType = type;
 			component.save();
 		}
-		System.out.println(component.componentType);
+//		System.out.println(component.componentType);
 		return component;
 	}
 	

@@ -1,30 +1,29 @@
-define(['lib/socket', 'datatype/datatypes'], function(socket, datatypes) {
+define(['datatype/datatypes', 'text!html/logs.html'], function(datatypes, html) {
   'use strict';
 
   function LogTable(selector, componentId) {
     this.componentId = componentId || '';
     this.table = this._createTable(selector);
     this.sortByColumn(3);
+    this.addLog = this.addLog.bind(this);
     return this;
   }
 
   LogTable.prototype = {
     _createTable: function(selector) {
-      var dataTable = $(selector).dataTable({
+      var widget = $(selector);
+      var table = widget.append(html).find('.log-table');
+      var dataTable = table.dataTable({
                       'bJQueryUI': true,
                       'sPaginationType': 'full_numbers',
                       'sDom': '<""l>t<"F"fp>'
                   });
-      this._setListener();
       return dataTable;
     },
     sortByColumn: function(number) {
       this.table.fnSort([[ number, 'desc' ]]);
     },
-    _setListener: function() {
-      socket.on(datatypes.LOG, this._addLog.bind(this));
-    },
-    _addLog: function(event, log) {
+    addLog: function(event, log) {
       if (log.component.id === this.componentId || this.componentId === '') {
         var d = new Date(log.created);
         var level = '[' + log.logType + ']';

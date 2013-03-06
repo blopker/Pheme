@@ -72,7 +72,7 @@ public class TestClient implements Runnable {
 
 	private void sendCounts(int count) {
 		String counterName = "Test Counter " + (count % 3);
-		int add = (count % 10) - 3;
+		int add = (count % 10) - 4;
 		// Update component's counter
 		component.count(counterName, add);
 		System.out.println(component.getComponentName() + " sent added count "

@@ -1,96 +1,88 @@
-define(function() {
+define(['text!html/chart.html'], function(html) {
   'use strict';
 
-  var currentValue = 0;
-
-  function setCurrentValue (value) {
-    currentValue = value;
+  function DataGraph (selector, name, value) {
+    this.currentValue = value;
+    this._init(selector, name);
+    this.update = this.update.bind(this);
+    this._updateSeries = this._updateSeries.bind(this);
+    setInterval(this._updateSeries, 40);
+    return this;
   }
 
-  function run () {
-    chart();
-  }
+  DataGraph.prototype = {
+    _data: [],
+    _maxValue: 0,
+    _init: function(selector, name) {
+      var container = $(selector);
+      var template = $(html);
+      template.find('.chart-title').text(name);
+      var chartContainer = template.find('.chart');
+      container.append(template);
 
-  function chart () {
-    var container = $('.chart');
+      // Determine how many data points to keep based on the placeholder's initial size;
+      // this gives us a nice high-res plot while avoiding more than one point per pixel.
+      this._maxXAxis = chartContainer.outerWidth() / 2 || 300;
 
-    // Determine how many data points to keep based on the placeholder's initial size;
-    // this gives us a nice high-res plot while avoiding more than one point per pixel.
+      var series = [{
+           data: this.currentValue,
+           lines: {
+               fill: true
+           }
+       }];
 
-    var maximum = container.outerWidth() / 2 || 300;
+      this._plot = $.plot(chartContainer, series, {
+              grid: {
+                  borderWidth: 1,
+                  minBorderMargin: 20,
+                  labelMargin: 10,
+                  backgroundColor: {
+                      colors: ['#fff', '#e4f4f4']
+                  },
+                  margin: {
+                      top: 8,
+                      bottom: 20,
+                      left: 20
+                  }
+              }
+          });
+    },
+    _updateSeries: function() {
+      var data = this._data;
+      if(data.length){
+        data = data.slice(1);
+      }
 
-    var data = [];
+      while (data.length < this._maxXAxis) {
+        data.push(this.currentValue);
+      }
+      this._data = data;
 
-    function makeData() {
+      // zip the generated y values with the x values
+      var res = [];
+      for (var i = 0; i < data.length; ++i) {
+          res.push([i, data[i]]);
+      }
 
-        if (data.length) {
-            data = data.slice(1);
-        }
+      var series = [{
+           data: res,
+           lines: {
+               fill: true
+           }
+       }];
 
-        while (data.length < maximum) {
-            data.push(currentValue);
-        }
+      this._plot.setData(series);
 
-        // zip the generated y values with the x values
+      if (this.currentValue > this._maxValue) {
+        this._maxValue = this.currentValue;
+        this._plot.setupGrid();
+      }
 
-        var res = [];
-        for (var i = 0; i < data.length; ++i) {
-            res.push([i, data[i]]);
-        }
-
-        return res;
+      this._plot.draw();
+    },
+    update: function(value) {
+      this.currentValue = value;
     }
-
-   var series = [{
-        data: currentValue,
-        lines: {
-            fill: true
-        }
-    }];
-
-    var plot = $.plot(container, series, {
-        grid: {
-            borderWidth: 1,
-            minBorderMargin: 20,
-            labelMargin: 10,
-            backgroundColor: {
-                colors: ['#fff', '#e4f4f4']
-            },
-            hoverable: true,
-            mouseActiveRadius: 50,
-            margin: {
-                top: 8,
-                bottom: 20,
-                left: 20
-            },
-            markings: function(axes) {
-                var markings = [];
-                var xaxis = axes.xaxis;
-                for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
-                    markings.push({ xaxis: { from: x, to: x + xaxis.tickSize }, color: 'rgba(232, 232, 255, 0.2)' });
-                }
-                return markings;
-            }
-        },
-        yaxis: {
-            min: 0,
-            max: 110
-        },
-        legend: {
-            show: true
-        }
-    });
-
-    setInterval(function updateRandom() {
-        series[0].data = makeData();
-        plot.setData(series);
-        plot.draw();
-    }, 40);
-
-  }
-
-  return {
-    run: run,
-    setValue: setCurrentValue
   };
+  return DataGraph;
 });

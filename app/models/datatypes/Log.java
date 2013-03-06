@@ -42,7 +42,7 @@ public class Log extends Model implements DataType{
 	}
 
 	public static DataType create(Component component, String type, String message) {
-		System.out.println("LOG: " + message);
+//		System.out.println("LOG: " + message);
 		Log log = new Log();
 		log.logType = type.toUpperCase();
 		log.component = component;

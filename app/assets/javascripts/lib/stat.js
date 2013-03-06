@@ -1,4 +1,4 @@
-define(function() {
+define(['text!html/stat.html'], function(html) {
   'use strict';
 
   function Stat(selectorUL, statName, stat) {
@@ -10,12 +10,14 @@ define(function() {
 
   Stat.prototype = {
     _init: function(selector) {
-      this.statNode = $(this._html(this.statName));
+      this.statNode = this._html(this.statName);
       $(selector).append(this.statNode);
       this.setStat(this.stat);
     },
     _html: function(name) {
-      return '<li><h4 class="stat-value"></h4><span class="stat-name">'+name+'</span></li>';
+      var stat = $(html);
+      stat.children('.stat-name').text(name);
+      return stat;
     },
     setStat: function(statInt) {
       this.statNode.children('.stat-value').text(statInt);
