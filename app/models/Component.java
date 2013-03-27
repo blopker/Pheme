@@ -1,55 +1,53 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-import play.data.format.Formats;
-import play.data.validation.Constraints;
-import play.db.ebean.Model;
-
-@Entity
-public class Component extends Model {
-	private static final long serialVersionUID = -269431700600617384L;
-
-	@Id
-	@Constraints.Min(10)
-	public String id = UUID.randomUUID().toString();
-
-	@Constraints.Required
-	public String componentName;
+public class Component {
+	static Map<String, Component> components = new HashMap<String, Component>();
 	
-	@Constraints.Required
+	public String id = UUID.randomUUID().toString();
+	public String componentName;
 	public Components componentType;
-
-	@Constraints.Required
-	@Formats.DateTime(pattern = "dd/MM/yyyy")
 	public Date created = new Date();
-
-	private static Finder<String, Component> find = new Finder<String, Component>(String.class,
-			Component.class);
 	
 	public static List<Component> getAll(Components type) {
-		return Component.find.where().eq("componentType", type).findList();
+		List<Component> componentList = new ArrayList<>();
+		for (Component component : components.values()) {
+			if (component.componentType.equals(type)) {
+				componentList.add(component);
+			}
+		}
+		return componentList;
 	}
 	
-	public static Component findOrCreate(String componentName, Components type) {
-		Component component = Component.find.where().eq("componentName", componentName).eq("componentType", type).findUnique();
+	public synchronized static Component findOrCreate(String componentName, Components type) {
+		Component component = null;
+		
+		for (Component testComponent : components.values()) {
+			if (testComponent.componentName.equals(componentName) && testComponent.componentType.equals(type)) {
+				component = testComponent;
+				break;
+			}
+		}
+		
+		// Component not found, create
 		if (component == null) {
 			component = new Component();
 			component.componentName = componentName;
 			component.componentType = type;
-			component.save();
+			components.put(component.id, component);
 		}
-//		System.out.println(component.componentType);
+		
 		return component;
 	}
 	
 	public static Component get(String id) {
-		return Component.find.byId(id);
+		return components.get(id);
 	}
 	
 	public static int getCount(Components type){

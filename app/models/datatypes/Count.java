@@ -1,64 +1,57 @@
 package models.datatypes;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
 import models.Component;
 import models.EventBus;
 
-import play.data.format.Formats;
-import play.data.validation.Constraints;
-import play.db.ebean.Model;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 
-@Entity
-public class Count extends Model implements DataType{
-
-	private static final long serialVersionUID = 1974692107443461977L;
-		
-	@Id
-	@Constraints.Min(10)
+public class Count implements DataType{
+	static Multimap<Component, Count> counts = HashMultimap.create();
+	
 	public String id = UUID.randomUUID().toString();
-
-	@ManyToOne
-	@Constraints.Required
 	public Component component;
-
-	@Constraints.Required
 	public String counterName;
-
-	@Constraints.Required
 	public long count;
-
-	@Formats.DateTime(pattern = "dd/MM/yyyy")
 	public Date created = new Date();
 
-	public static Finder<String, Count> find = new Finder<String, Count>(String.class,
-			Count.class);
-
-	public static List<Count> getAll() {
-		return find.all();
+	public List<Count> getFor(Component component){
+		List<Count> countList = new ArrayList<>();
+		countList.addAll(counts.get(component));
+		return countList;
 	}
 	
-	public static DataType create(Component component, String counterName, long addToCount) {
+	public static List<Count> getAll() {
+		List<Count> countList = new ArrayList<>();
+		countList.addAll(counts.values());
+		return countList;
+	}
+	
+	public synchronized static DataType create(Component component, String counterName, long addToCount) {
+		Count count = null;
+		for (Count testCount : counts.get(component)) {
+			if (testCount.counterName.equals(counterName)) {
+				count = testCount;
+			}
+		}
 		
-		Count count = Count.find.where().eq("component", component).eq("counterName", counterName).findUnique();
+		// Count doesn't exists, create.
 		if (count == null) {
 			count = new Count();
 			count.counterName = counterName;
 			count.component = component;
 			count.count = 0;
+			counts.put(component, count);
 		}
 		
 		count.count += addToCount;
-//		System.out.println("count: " + count.count + " " + count.counterName);
-//		System.out.println("counts: " + Count.find.all().size());
+		
 		EventBus.post(count);
-		count.save();
 		return count;
 	}
 	
