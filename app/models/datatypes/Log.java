@@ -1,6 +1,7 @@
 package models.datatypes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,8 @@ public class Log implements DataType{
 	
 	static Multimap<Component, Log> logs = LinkedListMultimap.create();
 	
+	static int MAX_LOGS_PER_COMPONENT = 1000;
+	
 	public String id = UUID.randomUUID().toString();
 	public Component component;
 	public String logType;
@@ -27,14 +30,26 @@ public class Log implements DataType{
 		return logList;
 	}
 
-	public static DataType create(Component component, String type, String message) {
+	public synchronized static DataType create(Component component, String type, String message) {
 		Log log = new Log();
 		log.logType = type.toUpperCase();
 		log.component = component;
 		log.message = message.replace(System.getProperty("line.separator"), "<br/>\n");
 		logs.put(component, log);
+		cleanup(component);
 		EventBus.post(log);
 		return log;
+	}
+
+	private static void cleanup(Component component) {
+		Collection<Log> logColl = logs.get(component);		
+		for (Log log : logColl) {
+			if (logColl.size() > MAX_LOGS_PER_COMPONENT) {
+				logColl.remove(log);
+			} else {
+				return;
+			}
+		}
 	}
 
 	@Override
