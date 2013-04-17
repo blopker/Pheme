@@ -1,4 +1,3 @@
-import com.github.retronym.SbtOneJar // Import one-jar
 import sbt._
 import Keys._
 import play.Project._
@@ -14,13 +13,11 @@ object ApplicationBuild extends Build {
       "org.reflections" % "reflections" % "0.9.8"
     )
 
-    // Make standard settings and add them to Play
-    def standardSettings = Seq(
-      exportJars := true
-    ) ++ Defaults.defaultSettings
-
-    val main = play.Project(appName, appVersion, appDependencies, settings = standardSettings ++ SbtOneJar.oneJarSettings).settings(
-      requireJs += "main.js"
+    val main = play.Project(appName, appVersion, appDependencies).settings(
+      requireJs += "main.js",
+      requireNativePath := Some("r.js"),
+      publishTo := Some(Resolver.file("Bo's Repo", Path.userHome / "code" / "blopker.github.com" / "maven-repo" asFile)),
+      publishMavenStyle := true
     )
 
 }

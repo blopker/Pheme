@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.blopker</groupId>
+  <artifactId>PhemeMavenTest</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>PhemeMavenTest</name>
+  <description>Test Using Pheme as a Maven dep</description>
+  <repositories>
+  	<repository>
+  		<id>Bos-Awesome-Repo</id>
+  		<name>Bo's Awesome Repo</name>
+  		<url>http://blopker.github.com/maven-repo/</url>
+  	</repository>
+  </repositories>
+  <dependencies>
+  	<dependency>
+  		<groupId>pheme</groupId>
+  		<artifactId>pheme_2.10</artifactId>
+  		<version>1.0</version>
+  	</dependency>
+  </dependencies>
+</project>
