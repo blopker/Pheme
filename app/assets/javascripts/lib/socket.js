@@ -1,44 +1,54 @@
-define(['lib/pubsub'], function(pubsub){
-  'use strict';
-  var eventPrefix = 'pheme.';
-  // var eventPrefix = '';
+define(['lib/pubsub'], function(pubsub) {
+    'use strict';
+    var eventPrefix = 'pheme.';
+    var subscriptions = [];
+    var sess = null;
 
 
-  (function connect () {
-    var WS;
-    if (window['MozWebSocket']) {
-      WS = MozWebSocket;
-    } else if (window['WebSocket']) {
-      WS = WebSocket;
-    } else{
-      // Running and old browser or RhinoJS
-      print('Sockets not supported!');
-      return;
+    (function connect() {
+        ab.connect(WS_URL,
+        // WAMP session was established
+
+        function(session) {
+            console.log('Connected!');
+            sess = session;
+            // subscribe to topics, providing an event handler
+            subscriptions.forEach(function(topic) {
+                session.subscribe(topic, onMessage);
+            });
+        },
+
+        // WAMP session is gone
+
+        function(code, reason) {
+            console.log('Connection lost (' + reason + ')');
+        }, {
+            skipSubprotocolCheck: true,
+            skipSubprotocolAnnounce: true
+        } // Important! Play rejects all subprotocols...
+        );
+    })();
+
+
+    function on(type, callback) {
+        subscriptions.push(eventPrefix + type);
+        // In case we don't have a socket connection yet.
+        if (sess !== null) {
+            sess.subscribe(eventPrefix + type, onMessage);
+        }
+        return pubsub.subscribe(eventPrefix + type, callback);
     }
-    var connection = new WS(WS_URL);
-    connection.onmessage = onMessage;
-  })();
 
-
-  function on (type, callback) {
-    return pubsub.subscribe(eventPrefix + type, callback);
-  }
-
-  function onMessage (message){
-    var data = JSON.parse(message.data);
-
-    for (var i = 0; i < data.length; i++) {
-      var event = eventPrefix.concat(data[i].dataType);
-      pubsub.publishSync(event, data[i]);
+    function onMessage(topic, data) {
+        pubsub.publishSync(topic, data);
     }
-  }
 
-  function send (dataType, data) {
-    // TODO
-  }
+    function call(method, data) {
+        // TODO
+    }
 
-  return{
-    on: on,
-    send: send
-  };
+    return {
+        on: on,
+        call: call
+    };
 });

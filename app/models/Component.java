@@ -41,6 +41,7 @@ public class Component {
 			component.componentName = componentName;
 			component.componentType = type;
 			components.put(component.id, component);
+			EventBus.post(component);
 		}
 		
 		return component;

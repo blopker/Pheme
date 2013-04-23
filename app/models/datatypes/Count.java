@@ -60,4 +60,9 @@ public class Count implements DataType{
 		return DataTypes.COUNT;
 	}
 
+	@Override
+	public Component getComponent() {
+		return component;
+	}
+
 }

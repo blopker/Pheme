@@ -9,7 +9,7 @@ GET /                               controllers.Application.index()
 GET /logs                           controllers.Application.logs()
 
 # Initiate a websocket connection ex. ws://localhost/socket
-GET /socket                         controllers.Application.socket()
+GET /socket                         ws.wamplay.controllers.WAMPlayServer.connect()
 
 # Inspect current running Jobs
 GET /jobs                           controllers.Application.jobList()

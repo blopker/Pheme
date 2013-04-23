@@ -8,8 +8,8 @@
     <a href="#" class="visible-phone"><i class="icon icon-signal"></i> Nav </a>
     <ul>
         <li class="@active("")"><a href="@routes.Application.index()"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-        <li class="@active("jobs") @active("job")"><a href="@routes.Application.jobList()"><i class="icon icon-inbox"></i> <span>Jobs</span><span class="label">@TemplateHelper.getJobCount()</span></a></li>
-        <li class="@active("computers") @active("computer")"><a href="@routes.Application.computerList()"><i class="icon icon-th"></i> <span>Computers</span><span class="label">@TemplateHelper.getComputerCount()</span></a></li>
+        <li class="@active("jobs") @active("job")"><a href="@routes.Application.jobList()"><i class="icon icon-inbox"></i> <span>Jobs</span><span class="label jobCounter">@TemplateHelper.getJobCount()</span></a></li>
+        <li class="@active("computers") @active("computer")"><a href="@routes.Application.computerList()"><i class="icon icon-th"></i> <span>Computers</span><span class="label computerCounter">@TemplateHelper.getComputerCount()</span></a></li>
         <li class="@active("logs")"><a href="@routes.Application.logs()"><i class="icon icon-th-list"></i> <span>Logs</span></a></li>
     </ul>
 </div>

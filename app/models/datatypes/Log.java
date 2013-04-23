@@ -56,4 +56,9 @@ public class Log implements DataType{
 	public DataTypes getDataType() {
 		return DataTypes.LOG;
 	}
+
+	@Override
+	public Component getComponent() {
+		return component;
+	}
 }
