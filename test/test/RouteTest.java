@@ -1,13 +1,16 @@
 package test;
 
-import org.junit.*;
+import static org.fest.assertions.Assertions.assertThat;
+import static play.mvc.Http.Status.OK;
+import static play.test.Helpers.callAction;
+import static play.test.Helpers.charset;
+import static play.test.Helpers.contentAsString;
+import static play.test.Helpers.contentType;
+import static play.test.Helpers.status;
 
-import play.mvc.*;
-import play.test.*;
-import play.libs.F.*;
+import org.junit.Test;
 
-import static play.test.Helpers.*;
-import static org.fest.assertions.Assertions.*;
+import play.mvc.Result;
 
 public class RouteTest {
 

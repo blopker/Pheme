@@ -10,7 +10,9 @@ public class Global extends GlobalSettings {
 
 	@Override
 	public void onStart(Application app) {
+		
 		WAMPlayServer.addController(new Socket());
+		
 		try {
 			RemoteService.start();
 		} catch (RemoteException e) {

@@ -4,19 +4,13 @@ import java.util.List;
 
 import models.Component;
 import models.Components;
-import models.clients.ClientManager;
-import models.clients.SocketClient;
 import models.datatypes.Log;
-
-import org.codehaus.jackson.JsonNode;
-
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.WebSocket;
 import views.html.component;
 import views.html.componentsList;
 import views.html.index;
-import views.html.*;
+import views.html.logs;
 
 public class Application extends Controller {
 
@@ -71,20 +65,5 @@ public class Application extends Controller {
 			return redirect(controllers.routes.Application.computerList());
 		}
 		return ok(component.render(computer));
-	}
-
-	/**
-	 * Handle the websocket.
-	 */
-	public static WebSocket<JsonNode> socket() {
-		return new WebSocket<JsonNode>() {
-
-			// Called when the Websocket Handshake is done.
-			public void onReady(WebSocket.In<JsonNode> in,
-					WebSocket.Out<JsonNode> out) {
-				SocketClient client = new SocketClient(in, out);
-				ClientManager.addClient(client);
-			}
-		};
 	}
 }
