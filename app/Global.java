@@ -19,12 +19,12 @@ public class Global extends GlobalSettings {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Logger.info("Application has started");
+		Logger.info("Pheme has started");
 	}
 
 	@Override
 	public void onStop(Application app) {
-		Logger.info("Application shutdown...");
+		Logger.info("Pheme shutdown...");
 		RemoteService.stop();
 	}
 

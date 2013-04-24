@@ -18,7 +18,7 @@ public class Starter {
 		starter.log("info", "I'M ALIVE. SEND HELP. At least there's beer here.");
 		
 		starter.count("Beers on the wall", 99);
-		for (int i = 99; i > 1; i--) {
+		for (int i = 99; i > 0; i--) {
 			starter.count("Beers on the wall", -1);
 			wait(500);
 		}
@@ -30,7 +30,7 @@ public class Starter {
 
 	
 	private static String getHostname(String[] args) {
-		String hostname = "localhost";
+		String hostname = "blopker.com";
 		if (args.length >= 1) {
 			hostname = args[0];
 		}
