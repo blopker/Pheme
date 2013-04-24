@@ -1,4 +1,4 @@
-package adapters.rmi.api;
+package pheme.api;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
-import adapters.rmi.api.DTOs.DTO;
+import pheme.api.dtos.DTO;
+
 
 class Sender implements Runnable {
 	final int RETRY_COUNT = 20;
@@ -64,7 +65,6 @@ class Sender implements Runnable {
 		throw new RemoteException();
 	}
 
-	@Override
 	public void run() {
 		tryConnecting(url);
 		List<DTO> messages = new ArrayList<DTO>();

@@ -1,9 +1,10 @@
-package adapters.rmi.api;
+package pheme.api;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import adapters.rmi.api.DTOs.DTO;
+import pheme.api.dtos.DTO;
+
 
 public class Pheme {
 	final BlockingQueue<DTO> messageQueue = new LinkedBlockingQueue<DTO>();

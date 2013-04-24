@@ -1,22 +1,51 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.blopker</groupId>
-  <artifactId>PhemeMavenTest</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>PhemeMavenTest</name>
-  <description>Test Using Pheme as a Maven dep</description>
-  <repositories>
-  	<repository>
-  		<id>Bos-Awesome-Repo</id>
-  		<name>Bo's Awesome Repo</name>
-  		<url>http://blopker.github.com/maven-repo/</url>
-  	</repository>
-  </repositories>
-  <dependencies>
-  	<dependency>
-  		<groupId>pheme</groupId>
-  		<artifactId>pheme_2.10</artifactId>
-  		<version>1.0</version>
-  	</dependency>
-  </dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.blopker</groupId>
+	<artifactId>PhemeMavenTest</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.2-SNAPSHOT</version>
+	<name>PhemeMavenTest</name>
+	<description>Test Using Pheme as a Maven dep</description>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>Starter</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<mainClass>Starter</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>Bos-Awesome-Repo</id>
+			<name>Bo's Awesome Repo</name>
+			<url>http://blopker.github.com/maven-repo/</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>pheme</groupId>
+			<artifactId>pheme-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

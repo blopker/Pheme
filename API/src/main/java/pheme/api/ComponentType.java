@@ -1,4 +1,4 @@
-package adapters.rmi.api;
+package pheme.api;
 
 public enum ComponentType {
 	JOB, COMPUTER;

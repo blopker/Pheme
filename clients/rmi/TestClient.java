@@ -1,8 +1,8 @@
 package rmi;
 
-import adapters.rmi.api.Component;
-import adapters.rmi.api.ComponentType;
-import adapters.rmi.api.Pheme;
+import pheme.api.Component;
+import pheme.api.ComponentType;
+import pheme.api.Pheme;
 
 public class TestClient implements Runnable {
 	static int COUNT_MAX = 1000;

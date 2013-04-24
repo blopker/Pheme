@@ -10,15 +10,18 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import adapters.rmi.api.PhemeAPI;
-import adapters.rmi.api.DTOs.DTO;
+import pheme.api.PhemeAPI;
+import pheme.api.dtos.DTO;
+import play.Logger;
+import play.Logger.ALogger;
 
 public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 	private static final long serialVersionUID = -551760291730129249L;
 	static Registry registry;
 	static PhemeAPI pheme;
 	final BlockingQueue<DTO> messageQueue;
-
+	static ALogger log = Logger.of(RemoteService.class.getSimpleName());
+	
 	public static void start() throws RemoteException {
 		// construct an rmiregistry within this JVM using the default port
 		if (registry == null) {
@@ -28,7 +31,7 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 		pheme = new RemoteService();
 		registry.rebind(PhemeAPI.SERVICE_NAME, pheme);
 
-		System.out.println("RMI Service: Ready.");
+		log.info("RMI Service: Ready.");
 	}
 
 	public static void stop() {
@@ -37,7 +40,7 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 				registry.unbind(PhemeAPI.SERVICE_NAME);
 				UnicastRemoteObject.unexportObject(pheme, true);
 				UnicastRemoteObject.unexportObject(registry, true);
-				System.out.println("RMI Service: Shutdown.");
+				log.info("RMI Service: Shutdown.");
 			}
 		} catch (AccessException e) {
 			// TODO Auto-generated catch block
@@ -62,7 +65,7 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 	@Override
 	public void send(List<DTO> dto) throws RemoteException {
 			messageQueue.addAll(dto);
-			System.out.println("Got " + dto.size() + " data types.");
+			log.info("Got " + dto.size() + " data types.");
 	}
 
 	private class MessageProcessor implements Runnable {

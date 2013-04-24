@@ -1,8 +1,9 @@
-package adapters.rmi.api.DTOs;
+package pheme.api.dtos;
 
 import java.io.Serializable;
 
-import adapters.rmi.api.ComponentType;
+import pheme.api.ComponentType;
+
 
 public abstract class DTO implements Serializable{
 	private static final long serialVersionUID = 2227151883169667020L;

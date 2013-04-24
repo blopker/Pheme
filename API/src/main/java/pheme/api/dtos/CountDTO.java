@@ -1,6 +1,6 @@
-package adapters.rmi.api.DTOs;
+package pheme.api.dtos;
 
-import adapters.rmi.api.ComponentType;
+import pheme.api.ComponentType;
 
 public class CountDTO extends DTO{
 	private static final long serialVersionUID = -6466024814639298817L;

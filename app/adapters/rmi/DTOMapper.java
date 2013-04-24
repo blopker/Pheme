@@ -5,10 +5,10 @@ import models.Components;
 import models.datatypes.Count;
 import models.datatypes.DataTypes;
 import models.datatypes.Log;
-import adapters.rmi.api.ComponentType;
-import adapters.rmi.api.DTOs.CountDTO;
-import adapters.rmi.api.DTOs.DTO;
-import adapters.rmi.api.DTOs.LogDTO;
+import pheme.api.ComponentType;
+import pheme.api.dtos.CountDTO;
+import pheme.api.dtos.DTO;
+import pheme.api.dtos.LogDTO;
 
 public class DTOMapper {
 	public static void create(DTO dto){

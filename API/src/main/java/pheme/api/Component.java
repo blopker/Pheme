@@ -1,10 +1,11 @@
-package adapters.rmi.api;
+package pheme.api;
 
 import java.util.concurrent.BlockingQueue;
 
-import adapters.rmi.api.DTOs.CountDTO;
-import adapters.rmi.api.DTOs.DTO;
-import adapters.rmi.api.DTOs.LogDTO;
+import pheme.api.dtos.CountDTO;
+import pheme.api.dtos.DTO;
+import pheme.api.dtos.LogDTO;
+
 
 public class Component {
 	final ComponentType type;

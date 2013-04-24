@@ -1,10 +1,11 @@
-package adapters.rmi.api;
+package pheme.api;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import adapters.rmi.api.DTOs.DTO;
+import pheme.api.dtos.DTO;
+
 
 
 public interface PhemeAPI extends Remote{
