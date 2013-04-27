@@ -34,7 +34,7 @@ public class Log implements DataType{
 		Log log = new Log();
 		log.logType = type.toUpperCase();
 		log.component = component;
-		log.message = message.replace(System.getProperty("line.separator"), "<br/>\n");
+		log.message = message;
 		logs.put(component, log);
 		cleanup(component);
 		EventBus.post(log);

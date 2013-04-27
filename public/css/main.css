@@ -95,6 +95,10 @@ footer{
     background: #D9E7FB;
 }
 
+td{
+    white-space: pre;
+}
+
 #filter-buttons .btn{
     margin-right: 10px;
 }

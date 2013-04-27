@@ -64,7 +64,7 @@ public class TestClient implements Runnable {
 
 	private void sendLogs(int count) {
 		String logType = LOG_TYPES[count % LOG_TYPES.length];
-		String message = "Will the real TestClient please stand up? " + count;
+		String message = "Will the real TestClient please stand up? " + count + "\n Or don't.\tSee if I care.";
 		// Log a message with the component
 		component.log(logType, message);
 		System.out.println(component.getComponentName() + " sent log " + count);
