@@ -12,7 +12,7 @@ define(['lib/logTable', 'lib/stats', 'lib/socket', 'datatype/datatypes'], functi
         if (data.dataType === DataTypes.LOG) {
             logTable.addLog(data);
         } else {
-            stats.addStat(data.id, data.counterName, data.count);
+            stats.addStat(data.id, data.name, data.value);
         }
     });
 

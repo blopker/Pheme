@@ -6,18 +6,10 @@ import java.util.List;
 import models.Component;
 
 public enum DataTypes {
-	COUNT("count"),
-	LOG("log");
-	
-	private final String type;
-	DataTypes(String type){
-		this.type = type;
-	}
-	
-	public String toString() {
-		return this.type;
-	}
-	
+	COUNT,
+	LOG,
+	GAUGE;
+
 	/**
 	 * Overload of valueOf(String) to be case insensitive.
 	 * @param dataType
@@ -31,6 +23,7 @@ public enum DataTypes {
 		List<DataType> datas = new ArrayList<DataType>();
 		datas.addAll(filterByComponent(Count.getAll(), component));
 		datas.addAll(filterByComponent(Log.getAll(), component));
+		datas.addAll(filterByComponent(Gauge.getAll(), component));
 		return datas;
 	}
 	

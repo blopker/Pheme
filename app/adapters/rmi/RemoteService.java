@@ -20,7 +20,7 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 	static Registry registry;
 	static PhemeAPI pheme;
 	final BlockingQueue<DTO> messageQueue;
-	static ALogger log = Logger.of(RemoteService.class.getSimpleName());
+	static ALogger log = Logger.of("RMI Service");
 	
 	public static void start() throws RemoteException {
 		// construct an rmiregistry within this JVM using the default port

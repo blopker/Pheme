@@ -55,6 +55,7 @@ public class TestClient implements Runnable {
 					sendLogs(count);
 				}
 				sendCounts(count);
+				sendGauge(count);
 				Thread.sleep(SLEEP_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -77,5 +78,14 @@ public class TestClient implements Runnable {
 		component.count(counterName, add);
 		System.out.println(component.getComponentName() + " sent added count "
 				+ add);
+	}
+	
+	private void sendGauge(int gauge) {
+		String gaugeName = "Test Gauge " + (gauge % 3);
+		int value = (gauge % 10) - 4;
+		// Update component's counter
+		component.gauge(gaugeName, value);
+		System.out.println(component.getComponentName() + " set guage to "
+				+ value);
 	}
 }

@@ -16,8 +16,8 @@ public class Count implements DataType{
 	
 	public String id = UUID.randomUUID().toString();
 	public Component component;
-	public String counterName;
-	public long count;
+	public String name;
+	public long value;
 	public Date created = new Date();
 
 	public List<Count> getFor(Component component){
@@ -35,7 +35,7 @@ public class Count implements DataType{
 	public synchronized static DataType create(Component component, String counterName, long addToCount) {
 		Count count = null;
 		for (Count testCount : counts.get(component)) {
-			if (testCount.counterName.equals(counterName)) {
+			if (testCount.name.equals(counterName)) {
 				count = testCount;
 			}
 		}
@@ -43,13 +43,13 @@ public class Count implements DataType{
 		// Count doesn't exists, create.
 		if (count == null) {
 			count = new Count();
-			count.counterName = counterName;
+			count.name = counterName;
 			count.component = component;
-			count.count = 0;
+			count.value = 0;
 			counts.put(component, count);
 		}
 		
-		count.count += addToCount;
+		count.value += addToCount;
 		
 		EventBus.post(count);
 		return count;
