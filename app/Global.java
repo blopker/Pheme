@@ -7,7 +7,7 @@ import play.*;
 import ws.wamplay.controllers.WAMPlayServer;
 
 public class Global extends GlobalSettings {
-
+	
 	@Override
 	public void onStart(Application app) {
 		
@@ -19,7 +19,8 @@ public class Global extends GlobalSettings {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Logger.info("Pheme has started");
+		String version = Play.application().configuration().getString("app.version");
+		Logger.info("Pheme v" + version + " has started");
 	}
 
 	@Override

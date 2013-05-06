@@ -3,7 +3,7 @@ package pheme.api.dtos;
 import pheme.api.ComponentType;
 
 public class GaugeDTO extends DTO{
-	private static final long serialVersionUID = -6466024814639298817L;
+	private static final long serialVersionUID = 7084653413871972384L;
 	final String name;
 	final long gaugeValue;
 

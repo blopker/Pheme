@@ -4,7 +4,7 @@ import pheme.api.ComponentType;
 
 
 public class LogDTO extends DTO {
-	private static final long serialVersionUID = 7838274700757079439L;
+	private static final long serialVersionUID = 7701625241344699527L;
 	final String type;
 	final String message;
 

@@ -6,7 +6,7 @@ import pheme.api.ComponentType;
 
 
 public abstract class DTO implements Serializable{
-	private static final long serialVersionUID = 2227151883169667020L;
+	private static final long serialVersionUID = 8369089856898719831L;
 	final String componentName;
 	final ComponentType componentType;
 	final String dataType;
@@ -26,4 +26,5 @@ public abstract class DTO implements Serializable{
 	public String getDataType(){
 		return this.dataType;
 	}
+	
 }

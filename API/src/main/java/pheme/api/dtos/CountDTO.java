@@ -3,7 +3,7 @@ package pheme.api.dtos;
 import pheme.api.ComponentType;
 
 public class CountDTO extends DTO{
-	private static final long serialVersionUID = -6466024814639298817L;
+	private static final long serialVersionUID = -3059741292501297109L;
 	final String name;
 	final long countToAdd;
 
