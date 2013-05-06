@@ -1,4 +1,4 @@
-define(['lib/logTable', 'lib/stats', 'lib/socket', 'datatype/datatypes'], function(LogTable, Stats, socket, DataTypes) {
+define(['lib/logTable', 'stats/stats', 'lib/socket', 'datatype/datatypes'], function(LogTable, Stats, socket, DataTypes) {
     'use strict';
 
     // Set up stats area

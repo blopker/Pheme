@@ -8,6 +8,18 @@ body {
     width: 820px;
 }
 
+.chart {
+    height: 400px !important;
+}
+
+.chart > div {
+    height: 100%;
+}
+
+.stats > .active {
+    background-color: #EDEDED;
+}
+
 .content {
     background-color: #fff;
     padding: 20px;
