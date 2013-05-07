@@ -61,6 +61,7 @@ public class TestClient implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		System.out.println(component.getComponentName() + " done!");
 	}
 
 	private void sendLogs(int count) {
@@ -68,7 +69,7 @@ public class TestClient implements Runnable {
 		String message = "Will the real TestClient please stand up? " + count + "\n Or don't.\tSee if I care.";
 		// Log a message with the component
 		component.log(logType, message);
-		System.out.println(component.getComponentName() + " sent log " + count);
+//		System.out.println(component.getComponentName() + " sent log " + count);
 	}
 
 	private void sendCounts(int count) {
@@ -76,8 +77,8 @@ public class TestClient implements Runnable {
 		int add = (count % 10) - 4;
 		// Update component's counter
 		component.count(counterName, add);
-		System.out.println(component.getComponentName() + " sent added count "
-				+ add);
+//		System.out.println(component.getComponentName() + " sent added count "
+//				+ add);
 	}
 	
 	private void sendGauge(int gauge) {
@@ -85,7 +86,7 @@ public class TestClient implements Runnable {
 		int value = (gauge % 10) - 4;
 		// Update component's counter
 		component.gauge(gaugeName, value);
-		System.out.println(component.getComponentName() + " set guage to "
-				+ value);
+//		System.out.println(component.getComponentName() + " set guage to "
+//				+ value);
 	}
 }

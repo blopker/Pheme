@@ -12,7 +12,7 @@ import pheme.api.dtos.DTO;
 
 class Sender implements Runnable {
 	final int RETRY_COUNT = 20;
-	final int RETRY_DELAY = 5000;
+	final int RETRY_DELAY = 1000;
 	final String url;
 	final Pheme pheme;
 	PhemeAPI api;

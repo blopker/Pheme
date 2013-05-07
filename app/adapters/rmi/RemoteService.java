@@ -23,7 +23,7 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 	static PhemeAPI pheme;
 	final BlockingQueue<DTO> messageQueue;
 	static ALogger log = Logger.of("RMI Service");
-	static int QUEUE_CAPACITY = 10000;
+	static int QUEUE_CAPACITY = 100000;
 
 	public static void start() throws RemoteException {
 		// construct an rmiregistry within this JVM using the default port
