@@ -6,7 +6,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 
 import pheme.api.dtos.DTO;
 
@@ -15,12 +14,12 @@ class Sender implements Runnable {
 	final int RETRY_COUNT = 20;
 	final int RETRY_DELAY = 5000;
 	final String url;
-	final BlockingQueue<DTO> queue;
+	final Pheme pheme;
 	PhemeAPI api;
 
-	public Sender(String url, BlockingQueue<DTO> messageQueue){
+	public Sender(String url, Pheme pheme){
 		this.url = url;
-		this.queue = messageQueue;
+		this.pheme = pheme;
 	}
 	
 	private void tryConnecting(String url) {
@@ -28,7 +27,7 @@ class Sender implements Runnable {
 		while (retries <= RETRY_COUNT) {
 			try {
 				api = connectAPI(url);
-				System.out.println("Connected to Pheme!");
+				System.out.println("Connected to Pheme.");
 				return;
 			} catch (RemoteException e) {
 				System.out.println("Cannot connect to Pheme at " + url
@@ -43,6 +42,8 @@ class Sender implements Runnable {
 				retries++;
 			}
 		}
+		System.out.println("Pheme failed to connect after 20 tries. Killing Pheme.");
+		this.pheme.kill();
 	}
 
 	/**
@@ -69,15 +70,17 @@ class Sender implements Runnable {
 		tryConnecting(url);
 		List<DTO> messages = new ArrayList<DTO>();
 		while (!Thread.currentThread().isInterrupted()) {
-			// Send messages first in case there's left overs from a failure.
+			// Check for empty message list in case there's left overs from a failure.
 			try {
-				api.send(messages);
+				if (messages.isEmpty() && pheme.drainTo(messages) == 0) {
+					// Use blocking call if queue is empty.
+					messages.add(pheme.take());
+					pheme.drainTo(messages);
+				}
+				send(messages);
 				messages.clear();
-				messages.add(queue.take());
-				queue.drainTo(messages);
 			} catch (RemoteException e) {
 				System.out.println("Lost connection to Pheme! Retrying...");
-				e.printStackTrace();
 				tryConnecting(url);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
@@ -85,6 +88,29 @@ class Sender implements Runnable {
 			 
 		}
 
+	}
+	
+	private void send(List<DTO> messages) throws RemoteException{
+		int max_tries = 20;
+		int tries = 0;
+		while (tries < max_tries) {
+			List<DTO> rejected = api.send(messages);
+			if (rejected == null) {
+				System.out.println("Sent " + messages.size() + " dataTypes.");
+				return;
+			}
+			// Remove the successful transfers. 
+			messages.clear();
+			messages.addAll(rejected);
+			System.out.println("RMI Server queue full, waiting...");
+			try {
+				Thread.sleep(RETRY_DELAY);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("Server too busy, killing Pheme.");
+		pheme.kill();
 	}
 
 }

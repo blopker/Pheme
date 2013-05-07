@@ -6,6 +6,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -21,7 +23,8 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 	static PhemeAPI pheme;
 	final BlockingQueue<DTO> messageQueue;
 	static ALogger log = Logger.of("RMI Service");
-	
+	static int QUEUE_CAPACITY = 10000;
+
 	public static void start() throws RemoteException {
 		// construct an rmiregistry within this JVM using the default port
 		if (registry == null) {
@@ -56,16 +59,28 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 
 	private RemoteService() throws RemoteException {
 		super();
-		messageQueue = new LinkedBlockingQueue<DTO>();
+		messageQueue = new LinkedBlockingQueue<DTO>(QUEUE_CAPACITY);
 		MessageProcessor p = new MessageProcessor();
 		Thread t = new Thread(p);
 		t.start();
 	}
 
 	@Override
-	public void send(List<DTO> dto) throws RemoteException {
-			messageQueue.addAll(dto);
-			log.info("Got " + dto.size() + " data types.");
+	public List<DTO> send(List<DTO> dtos) throws RemoteException {
+		List<DTO> rejected = null;
+		log.info("Got " + dtos.size() + " data types.");
+		for (DTO dto : dtos) {
+			// If queue is full add it to the rejected list.
+			if (!messageQueue.offer(dto)) {
+				// Lazily create rejected array.
+				if (rejected == null) {
+					rejected = new ArrayList<DTO>();
+				}
+				log.info("RMI queue full, DTO rejected");
+				rejected.add(dto);
+			}
+		}
+		return rejected;
 	}
 
 	private class MessageProcessor implements Runnable {

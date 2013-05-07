@@ -1,7 +1,5 @@
 package pheme.api;
 
-import java.util.concurrent.BlockingQueue;
-
 import pheme.api.dtos.CountDTO;
 import pheme.api.dtos.DTO;
 import pheme.api.dtos.GaugeDTO;
@@ -10,38 +8,34 @@ import pheme.api.dtos.LogDTO;
 public class Component {
 	final ComponentType type;
 	final String componentName;
-	final BlockingQueue<DTO> sendQueue;
+	final Pheme pheme;
 
 	protected Component(String component, ComponentType type,
-			BlockingQueue<DTO> messageQueue) {
+			Pheme pheme) {
 		this.componentName = component;
 		this.type = type;
-		this.sendQueue = messageQueue;
+		this.pheme = pheme;
 	}
 
 	public String getComponentName() {
 		return componentName;
 	}
 
-	public void log(String type, String message) {
-		addToQueue(new LogDTO(this.componentName, this.type, type, message));
+	public boolean log(String type, String message) {
+		return addToQueue(new LogDTO(this.componentName, this.type, type, message));
 	}
 
-	public void count(String counterName, long amountToAdd) {
-		addToQueue(new CountDTO(this.componentName, this.type, counterName,
+	public boolean count(String counterName, long amountToAdd) {
+		return addToQueue(new CountDTO(this.componentName, this.type, counterName,
 				amountToAdd));
 	}
 
-	public void gauge(String gaugeName, long gaugeValue) {
-		addToQueue(new GaugeDTO(this.componentName, this.type, gaugeName,
+	public boolean gauge(String gaugeName, long gaugeValue) {
+		return addToQueue(new GaugeDTO(this.componentName, this.type, gaugeName,
 				gaugeValue));
 	}
 
-	private synchronized void addToQueue(DTO dto) {
-		try {
-			sendQueue.put(dto);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+	private synchronized boolean addToQueue(DTO dto) {
+		return pheme.send(dto);
 	}
 }

@@ -9,14 +9,22 @@ import pheme.api.dtos.DTO;
 
 
 public interface PhemeAPI extends Remote{
+	
 	/**
      * Name of the service the client will connect to.
      */
     public static String SERVICE_NAME = "Pheme";
+    
     /**
      * Port the computer will bind to.
      */
     public static int SERVICE_PORT = 1099;
     
-    public void send(List<DTO> messages) throws RemoteException;
+    /**
+     * Send a batch of DTOs to the server.
+     * @param List of DTOs
+     * @return rejected list of DTO objects. List is null if all objects were accepted.
+     * @throws RemoteException
+     */
+    public List<DTO> send(List<DTO> messages) throws RemoteException;
 }
