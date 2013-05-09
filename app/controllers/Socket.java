@@ -5,6 +5,7 @@ import java.util.List;
 import models.Component;
 import models.Components;
 import models.EventBus;
+import models.SystemInfo;
 import models.datatypes.DataType;
 import models.datatypes.DataTypes;
 import models.datatypes.Log;
@@ -28,6 +29,7 @@ public class Socket extends WAMPlayContoller {
 
 	public Socket() {
 		this.addTopic("components");
+		this.addTopic("system");
 		// Get in on the awesome event bus action.
 		EventBus.subscribe(this);
 	}
@@ -37,26 +39,32 @@ public class Socket extends WAMPlayContoller {
 		addComponentTopic(component);
 		publishComponents();
 	}
-	
+
+	@Subscribe
+	public void systemInfoListener(final SystemInfo info) {
+		WAMPlayServer.publish(getTopic("system"), Json.toJson(info.getInfo()));
+	}
+
 	private void addComponentTopic(final Component component) {
 		final String componentTopic = getTopic(component.id);
 		if (!WAMPlayServer.isTopic(componentTopic)) {
 			WAMPlayServer.addTopic(componentTopic);
-			WAMPlayServer.addTopic(componentTopic, new PubSubCallback(){
+			WAMPlayServer.addTopic(componentTopic, new PubSubCallback() {
 				@Override
 				protected boolean onSubscribe(String sessionID) {
 					// Send all the old data to the new client right away.
 					WAMPlayClient client = WAMPlayServer.getClient(sessionID);
 					List<DataType> datas = DataTypes.getAllFor(component);
 					for (DataType data : datas) {
-						client.send(new Event(componentTopic, Json.toJson(data)).toJson());
+						client.send(new Event(componentTopic, Json.toJson(data))
+								.toJson());
 					}
 					return true;
 				}
 			});
 		}
 	}
-	
+
 	private void publishComponents() {
 		ObjectNode result = Json.newObject();
 		List<Component> computers = Component.getAll(Components.COMPUTER);
@@ -76,9 +84,9 @@ public class Socket extends WAMPlayContoller {
 		}
 		WAMPlayServer.publish(getTopic(data.getComponent().id), d);
 	}
-	
+
 	@onSubscribe("logs")
-	public boolean logsSubscribe(String sessionID){
+	public boolean logsSubscribe(String sessionID) {
 		String topic = getTopic("logs");
 		// Send all the old logs to the new client right away.
 		WAMPlayClient client = WAMPlayServer.getClient(sessionID);

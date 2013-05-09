@@ -1,5 +1,7 @@
 import java.rmi.RemoteException;
 
+import models.SystemInfo;
+
 import controllers.Socket;
 
 import adapters.rmi.RemoteService;
@@ -20,6 +22,7 @@ public class Global extends GlobalSettings {
 			e.printStackTrace();
 		}
 		String version = Play.application().configuration().getString("app.version");
+		SystemInfo.run();
 		Logger.info("Pheme v" + version + " has started");
 	}
 

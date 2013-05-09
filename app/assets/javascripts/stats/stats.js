@@ -4,7 +4,8 @@ define(['text!html/stats.html', 'stats/stat', 'stats/chart'], function(html, Sta
     var statHolder = '.stats';
     var chartHolder = '.chart';
 
-    function Stats() {
+    function Stats(holderSelector) {
+        this.holderSelector = holderSelector || '.stats-holder';
         this._init();
         this._stats = {};
         this._charts = {};
@@ -15,7 +16,7 @@ define(['text!html/stats.html', 'stats/stat', 'stats/chart'], function(html, Sta
     Stats.prototype = {
         _init: function() {
             var template = $(html);
-            $('.stats-holder').append(template);
+            $(this.holderSelector).append(template);
         },
         _setStat: function(id) {
 
