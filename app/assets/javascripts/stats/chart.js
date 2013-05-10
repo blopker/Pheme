@@ -7,13 +7,12 @@ define(function() {
         this._plot = this._createPlot(this.container);
         this.update = this.update.bind(this);
         this._updateSeries = this._updateSeries.bind(this);
+        this._data = [];
         setInterval(this._updateSeries, 40);
         return this;
     }
 
     Chart.prototype = {
-        _data: [],
-        _maxValue: 0,
         _createContainer: function(selector, id) {
             var parent = $(selector);
             var container = $('<div>');
@@ -63,12 +62,13 @@ define(function() {
 
             this._plot.setData([res]);
 
-            if (this.currentValue > this._maxValue) {
-                this._maxValue = this.currentValue;
+            this._plot.draw();
+
+            // Keep the line visible
+            var yaxis = this._plot.getAxes().yaxis;
+            if (this.currentValue > yaxis.max || this.currentValue < yaxis.min) {
                 this._plot.setupGrid();
             }
-
-            this._plot.draw();
         },
         update: function(value) {
             this.currentValue = value;

@@ -30,7 +30,7 @@ public class Starter {
 
 	
 	private static String getHostname(String[] args) {
-		String hostname = "blopker.com";
+		String hostname = "localhost";
 		if (args.length >= 1) {
 			hostname = args[0];
 		}
