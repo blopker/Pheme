@@ -6,11 +6,9 @@ View Pheme's [project page](http://blopker.github.com/Pheme/).
 
 This project requires *Play 2.1*.
 
-## Abstract
+Download the latest server build from: <http://pheme.in/downloads/pheme-latest.zip>
 
-The big data era is upon us. To manage this data we increasingly rely on distributed application frameworks like Hadoop, Storm, and jPregel. While these frameworks are powerful they often use esoteric report and control schemes. Unfortunately, these frameworks are far to busy pushing the  performance envelope to design something better. A simple, drop-in control interface is needed. That's where Pheme comes in. Users need easy access to distributed applications through a simple interface. Pheme is a real-time standalone web application that is easy to use for both application developers and end users. By making big data more accessible to fields out side of computer science Pheme hands the power these frameworks over to the people who need it most.
-
-Pheme uses Java, the Play Framework, Websockets, Require.js with other technologies. This paper explores the design and performance challenges involved with mixing these pieces together to make Pheme a reality.
+The [Abstract](https://github.com/blopker/Pheme/wiki/Abstract) is now on the wiki.
 
 ## Usage
 Pheme is a [Play Framework](http://www.playframework.org) web app. To run Pheme make sure your `play` command is working. If not, download the Play Framework. Next run:
