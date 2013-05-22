@@ -13,6 +13,7 @@ public class Pheme {
 	final Sender sender;
 	Thread senderThread;
 	boolean alive = true;
+	Server server;
 
 	public Pheme(String hostname) {
 		String serverDomainName = (hostname == null) ? "localhost" : hostname;
@@ -27,15 +28,37 @@ public class Pheme {
 		return new Component(component, type, this);
 	}
 
-	protected synchronized void kill() {
-		System.out.println("Killing Pheme.");
+	public synchronized void killClient() {
+		System.out.println("Killing Pheme client.");
 		if (senderThread != null) {
 			senderThread.interrupt();
 		}
 		messageQueue.clear();
 		alive = false;
 	}
+	
+	/**
+	 * Starts a Pheme server. This method will attempt to download the Pheme server code, 
+	 * extract it and run it. Returns null if the server fails to start.
+	 * @return Pheme Server or null
+	 */
+	public synchronized Server startServer(){
+		server = Server.startServer();
+		return server;
+	}
+	
+	public synchronized void killServer(){
+		server.kill();
+	}
 
+	/**
+	 * Returns the running Pheme server or null if the server is not running.
+	 * @return Pheme Server or null
+	 */
+	public Server getServer() {
+		return server;
+	}
+	
 	protected synchronized boolean send(DTO dto) {
 		if (alive) {
 			return messageQueue.offer(dto);

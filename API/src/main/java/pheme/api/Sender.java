@@ -43,7 +43,7 @@ class Sender implements Runnable {
 			}
 		}
 		System.out.println("Pheme failed to connect after 20 tries. Killing Pheme.");
-		this.pheme.kill();
+		this.pheme.killClient();
 	}
 
 	/**
@@ -93,24 +93,26 @@ class Sender implements Runnable {
 	private void send(List<DTO> messages) throws RemoteException{
 		int max_tries = 20;
 		int tries = 0;
+		// Start trying to send data
 		while (tries < max_tries) {
 			List<DTO> rejected = api.send(messages);
 			if (rejected == null) {
 				System.out.println("Sent " + messages.size() + " dataTypes.");
 				return;
 			}
-			// Remove the successful transfers. 
+			// Remove the successful transfers then add the rejected ones.
 			messages.clear();
 			messages.addAll(rejected);
-			System.out.println("RMI Server queue full, waiting...");
+			// Chill out for a sec.
+			System.out.println("Server queue full, waiting...");
 			try {
 				Thread.sleep(RETRY_DELAY);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Server too busy, killing Pheme.");
-		pheme.kill();
+		System.out.println("Server refusing to accept data, killing Pheme.");
+		pheme.killClient();
 	}
 
 }
