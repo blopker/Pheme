@@ -24,7 +24,7 @@ public class UnzipUtil {
 		out.close();
 	}
 
-	public static void unzipMyZip(String zipFileName,
+	protected static void unzipMyZip(String zipFileName,
 			String directoryToExtractTo) {
 		Enumeration<?> entriesEnum;
 		ZipFile zipFile;

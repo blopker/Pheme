@@ -12,15 +12,19 @@ import java.rmi.server.ServerNotActiveException;
 public class Server {
 	private Process serverProc;
 	private static String EXTRACT_FOLDER = "/tmp/pheme";
-	
+
 	public static void main(String[] args) {
 		Server.startServer();
 	}
 
 	protected static Server startServer() {
+		return startServer(true);
+	}
+
+	protected static Server startServer(boolean autoShutdown) {
 		Server server = null;
 		try {
-			server = new Server();
+			server = new Server(autoShutdown);
 		} catch (ServerNotActiveException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -29,7 +33,8 @@ public class Server {
 		return server;
 	}
 
-	private Server() throws ServerNotActiveException, IOException {
+	private Server(boolean autoShutdown) throws ServerNotActiveException,
+			IOException {
 		String zipLocation = download(
 				"http://pheme.in/downloads/pheme-latest.zip", "/tmp");
 		if (zipLocation == null) {
@@ -38,39 +43,44 @@ public class Server {
 		}
 
 		UnzipUtil.unzipMyZip(zipLocation, EXTRACT_FOLDER);
-		
+
 		String path = getNewestFolderName(EXTRACT_FOLDER);
 		System.out.println("Running: " + "bash " + path + "start");
-		String[] cmd = {"bash", path + "start"};
-		serverProc = new ProcessBuilder(cmd).redirectError(Redirect.INHERIT).redirectOutput(Redirect.INHERIT).start();
+		String[] cmd = { "bash", path + "start" };
+		serverProc = new ProcessBuilder(cmd).redirectError(Redirect.INHERIT)
+				.redirectOutput(Redirect.INHERIT).start();
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Runtime.getRuntime().addShutdownHook(new Thread(){
-			@Override
-			public void run() {
-				kill();
-			}
-		});
+
+		if (autoShutdown) {
+			Runtime.getRuntime().addShutdownHook(new Thread() {
+				@Override
+				public void run() {
+					kill();
+				}
+			});
+
+		}
 	}
-	
+
 	private String getNewestFolderName(String folderpath) {
 		File[] files = new File(EXTRACT_FOLDER).listFiles();
-		File newest = (files.length > 0)? files[0]: null;
+		File newest = (files.length > 0) ? files[0] : null;
 		if (newest == null) {
 			return "";
 		}
-		for (File file: files) {
+		for (File file : files) {
 			if (file.isDirectory()) {
-				if (file.lastModified() > newest.lastModified() ) {
+				if (file.lastModified() > newest.lastModified()) {
 					newest = file;
 				}
 			}
 		}
-		return newest.getAbsolutePath() + File.separator;		
+		return newest.getAbsolutePath() + File.separator;
 	}
 
 	public void kill() {

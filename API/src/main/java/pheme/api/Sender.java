@@ -17,7 +17,7 @@ class Sender implements Runnable {
 	final Pheme pheme;
 	PhemeAPI api;
 
-	public Sender(String url, Pheme pheme){
+	protected Sender(String url, Pheme pheme){
 		this.url = url;
 		this.pheme = pheme;
 	}
