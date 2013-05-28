@@ -33,7 +33,7 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 		pheme = new RemoteService();
 		registry.rebind(PhemeAPI.SERVICE_NAME, pheme);
 
-		log.info("RMI Service: Ready.");
+		log.debug("RMI Service: Ready.");
 	}
 
 	public static void stop() {
@@ -67,7 +67,7 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 	@Override
 	public List<DTO> send(List<DTO> dtos) throws RemoteException {
 		List<DTO> rejected = null;
-		log.info("Got " + dtos.size() + " data types.");
+		log.debug("Got " + dtos.size() + " data types.");
 		for (DTO dto : dtos) {
 			// If queue is full add it to the rejected list.
 			if (!messageQueue.offer(dto)) {
@@ -75,7 +75,7 @@ public class RemoteService extends UnicastRemoteObject implements PhemeAPI {
 				if (rejected == null) {
 					rejected = new ArrayList<DTO>();
 				}
-				log.info("RMI queue full, DTO rejected");
+				log.debug("RMI queue full, DTO rejected");
 				rejected.add(dto);
 			}
 		}
