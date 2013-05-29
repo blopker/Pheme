@@ -7,7 +7,7 @@ import pheme.api.Pheme;
 public class PerformanceClient implements Runnable {
 	static int TEST_WAIT_SEC = 3;
 	static int TEST_RUN_SEC = 10;
-	static int START_DELAY_MSEC = 20
+	static int START_DELAY_MSEC = 19;
 	static int DELAY_DECAY_MSEC = 2;
 
 	static String JOB_NAME_PREFIX = "Performance Test";
@@ -41,7 +41,13 @@ public class PerformanceClient implements Runnable {
 
 	@Override
 	public void run() {
+        try {
+            // Wait a couple for the client to connect...
+            Thread.sleep(3000);
+        } catch (Exception e) {
+        }
 		for (int delay = START_DELAY_MSEC; delay > 0; delay -= DELAY_DECAY_MSEC) {
+            System.out.println("Starting test with delay " + delay);
 			runTest(delay);
 			try {
 				Thread.sleep(TEST_WAIT_SEC * 1000);
