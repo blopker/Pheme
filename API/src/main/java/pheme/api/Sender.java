@@ -97,7 +97,7 @@ class Sender implements Runnable {
 		while (tries < max_tries) {
 			List<DTO> rejected = api.send(messages);
 			if (rejected == null) {
-				System.out.println("Sent " + messages.size() + " dataTypes.");
+//				System.out.println("Sent " + messages.size() + " dataTypes.");
 				return;
 			}
 			// Remove the successful transfers then add the rejected ones.
