@@ -7,8 +7,8 @@ import pheme.api.Pheme;
 public class PerformanceClient implements Runnable {
 	static int TEST_WAIT_SEC = 3;
 	static int TEST_RUN_SEC = 10;
-	static int START_DELAY_MSEC = 19;
-	static int DELAY_DECAY_MSEC = 2;
+	static int START_DELAY_MSEC = 50;
+	static int DELAY_DECAY_MSEC = 5;
 
 	static String JOB_NAME_PREFIX = "Performance Test";
 
@@ -56,10 +56,9 @@ public class PerformanceClient implements Runnable {
 		}
 		System.out.println(component.getComponentName() + " done!");
 	}
-	
+
 	private void runTest(int delay) {
 		this.component.log("INFO", "Starting test with delay of " + delay);
-	
 		long total_count = TEST_RUN_SEC * 1000 / delay;
 		for (int count = 0; count < total_count; count++) {
 		    component.count("Performance Count " + delay, 1);
@@ -68,7 +67,6 @@ public class PerformanceClient implements Runnable {
 			} catch (Exception e) {
 			}
 		}
-		
 		this.component.log("INFO", "Finished test with delay of " + delay);
 	}
 }
