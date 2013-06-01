@@ -37,6 +37,7 @@ Main dashboard
 ![Main](https://github.com/blopker/Pheme/wiki/img/dashboard.png)
 Job Page
 ![Job](https://github.com/blopker/Pheme/wiki/img/job.png)
+![Job Logs](https://github.com/blopker/Pheme/wiki/img/joblogs.png)
 Computer list
 ![Computers](https://github.com/blopker/Pheme/wiki/img/computers.png)
 Logs page
