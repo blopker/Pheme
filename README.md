@@ -11,6 +11,14 @@ Download the latest server build from: <http://pheme.in/downloads/pheme-latest.z
 The [Abstract](https://github.com/blopker/Pheme/wiki/Abstract) is now on the wiki.
 
 ## Usage
+### With binary
+To run the Pheme server with the binary build provided above, unzip the archive and run:
+
+    cd pheme-latest
+    chmod +x start
+    ./start
+
+### From source
 Pheme is a [Play Framework](http://www.playframework.org) web app. To run Pheme make sure your `play` command is working. If not, download the Play Framework. Next run:
 
 	play start
@@ -22,10 +30,6 @@ in the Pheme root folder. You can also start a development server with:
 To run the test RMI client you'll need Ant. Then run:
 
 	ant runClient
-
-Finally you can go through all the unittests by running:
-
-	play test
 
 ## Screenshots
 
