@@ -29,9 +29,14 @@ Finally you can go through all the unittests by running:
 
 ## Screenshots
 
+Main dashboard
+![Main](https://github.com/blopker/Pheme/wiki/img/dashboard.png)
 Job Page
-
-![Logs](https://github.com/blopker/Pheme/blob/master/pheme_logs.PNG?raw=true)
+![Job](https://github.com/blopker/Pheme/wiki/img/job.png)
+Computer list
+![Computers](https://github.com/blopker/Pheme/wiki/img/computers.png)
+Logs page
+![logs](https://github.com/blopker/Pheme/wiki/img/logs.png)
 
 ## License
 
