@@ -3,7 +3,6 @@
 	<property name="hostname" value="localhost" />
 	<property name="build_dir" location="bin" />
 	<property name="dist_dir" location="dist" />
-	<property name="phemeapi_dir" location="adapters/rmi/api" />
 	<property name="client_src" location="clients" />
 	<property name="API_src" location="API/src/main/java" />
 
@@ -50,7 +49,7 @@
 	</target>
 
 	<target name="javadoc" description="create javadocs">
-		<javadoc packagenames="api.*" sourcepath="${src}" destdir="documents/javadoc" />
+		<javadoc packagenames="pheme.api.*" sourcepath="${API_src}" destdir="documents/javadoc" />
 	</target>
 
 	<target name="clean" description="clean up">

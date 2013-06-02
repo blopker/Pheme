@@ -19,7 +19,7 @@ public class Component {
 	/**
 	 * Returns the name of this component.
 	 * 
-	 * @return
+	 * @return String of this component's name.
 	 */
 	public String getComponentName() {
 		return componentName;
@@ -32,7 +32,7 @@ public class Component {
 	 *            Type of log to commit (INFO, ERROR, WARNING)
 	 * @param message
 	 *            The actual log message.
-	 * @return
+	 * @return True if the send buffer is not full, otherwise False. False means the message with not be sent.
 	 */
 	public boolean log(String type, String message) {
 		return addToQueue(new LogDTO(this.componentName, this.type, type,
@@ -46,7 +46,7 @@ public class Component {
 	 * 
 	 * @param counterName
 	 * @param amountToAdd
-	 * @return
+	 * @return True if the send buffer is not full, otherwise False. False means the message with not be sent.
 	 */
 	public boolean count(String counterName, long amountToAdd) {
 		return addToQueue(new CountDTO(this.componentName, this.type,
@@ -59,7 +59,7 @@ public class Component {
 	 * 
 	 * @param gaugeName
 	 * @param gaugeValue
-	 * @return
+	 * @return True if the send buffer is not full, otherwise False. False means the message with not be sent.
 	 */
 	public boolean gauge(String gaugeName, long gaugeValue) {
 		return addToQueue(new GaugeDTO(this.componentName, this.type,
