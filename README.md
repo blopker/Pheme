@@ -8,7 +8,7 @@ This project requires *Play 2.1*.
 
 Download the latest server build from: <http://pheme.in/downloads/pheme-latest.zip>
 
-The [Abstract](https://github.com/blopker/Pheme/wiki/Abstract) is now on the wiki.
+For more information check out the [wiki](https://github.com/blopker/Pheme/wiki).
 
 ## Usage
 ### With binary
