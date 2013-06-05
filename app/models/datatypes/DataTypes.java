@@ -19,8 +19,11 @@ public enum DataTypes {
 		return DataTypes.valueOf(dataType.toUpperCase());
 	}
 	
+	
+	// Probably not the right place for this. Oh well.
 	public static List<DataType> getAllFor(Component component) {
 		List<DataType> datas = new ArrayList<DataType>();
+		// Add each datatype manually... This could be done better.
 		datas.addAll(filterByComponent(Count.getAll(), component));
 		datas.addAll(filterByComponent(Log.getAll(), component));
 		datas.addAll(filterByComponent(Gauge.getAll(), component));
