@@ -15,7 +15,7 @@ object ApplicationBuild extends Build {
     "com.google.guava" % "guava" % "13.0.1",
     "org.reflections" % "reflections" % "0.9.8",
     "ws.wamplay" %% "wamplay" % "0.1.6",
-    "pheme" % "pheme-api" % "0.0.1-SNAPSHOT"
+    "pheme" % "pheme-api" % "1.1.0"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(

@@ -8,9 +8,17 @@ This project requires *Play 2.1*.
 
 Download the latest server build from: <http://pheme.in/downloads/pheme-latest.zip>
 
-The [Abstract](https://github.com/blopker/Pheme/wiki/Abstract) is now on the wiki.
+For more information check out the [wiki](https://github.com/blopker/Pheme/wiki).
 
 ## Usage
+### With binary
+To run the Pheme server with the binary build provided above, unzip the archive and run:
+
+    cd pheme-latest
+    chmod +x start
+    ./start
+
+### From source
 Pheme is a [Play Framework](http://www.playframework.org) web app. To run Pheme make sure your `play` command is working. If not, download the Play Framework. Next run:
 
 	play start
@@ -23,15 +31,17 @@ To run the test RMI client you'll need Ant. Then run:
 
 	ant runClient
 
-Finally you can go through all the unittests by running:
-
-	play test
-
 ## Screenshots
 
+Main dashboard
+![Main](https://github.com/blopker/Pheme/wiki/img/dashboard.png)
 Job Page
-
-![Logs](https://github.com/blopker/Pheme/blob/master/pheme_logs.PNG?raw=true)
+![Job](https://github.com/blopker/Pheme/wiki/img/job.png)
+![Job Logs](https://github.com/blopker/Pheme/wiki/img/joblogs.png)
+Computer list
+![Computers](https://github.com/blopker/Pheme/wiki/img/computers.png)
+Logs page
+![logs](https://github.com/blopker/Pheme/wiki/img/logs.png)
 
 ## License
 

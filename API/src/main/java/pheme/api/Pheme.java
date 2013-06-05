@@ -43,7 +43,7 @@ public class Pheme {
 	 *            references to this component. Format it for readability.
 	 * @param type
 	 *            ComponentType of the component to register.
-	 * @return
+	 * @return A Component object to send messages with.
 	 */
 	public Component register(String componentName, ComponentType type) {
 		return new Component(componentName, type, this);
@@ -55,7 +55,7 @@ public class Pheme {
 	 * @param componentName
 	 *            Name of the job. This name will be displayed in all references
 	 *            to this component. Format it for readability.
-	 * @return
+	 * @return A Component object to send messages with.
 	 */
 	public Component registerJob(String componentName) {
 		return this.register(componentName, ComponentType.JOB);
@@ -67,7 +67,7 @@ public class Pheme {
 	 * @param componentName
 	 *            Name of the computer. This name will be displayed in all
 	 *            references to this component. Format it for readability.
-	 * @return
+	 * @return A Component object to send messages with.
 	 */
 	public Component registerComputer(String componentName) {
 		return this.register(componentName, ComponentType.COMPUTER);
